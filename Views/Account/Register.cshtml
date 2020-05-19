@@ -1,0 +1,132 @@
+﻿@model RegiserModel
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="grid-x">
+
+    <div class="cell">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <form asp-action="Register" asp-controller="Account" method="post" enctype="multipart/form-data">
+
+            <div class="grid-container">
+
+                <div class="grid-x grid-margin-x">
+
+                    <div class="cell small-6">
+                        <span asp-validation-for="AccountName" class="text-danger"></span>
+                        <label asp-for="AccountName">
+                            Account Name
+                            <input asp-for="AccountName" />
+                        </label>
+                    </div>
+                    <div class="cell small-6">
+                        <span asp-validation-for="AccountEmail" class="text-danger"></span>
+                        <label asp-for="AccountEmail">
+                            Account Email
+                            <input asp-for="AccountEmail" />
+                        </label>
+                    </div>
+
+                </div>
+
+                <div class="grid-x grid-margin-x">
+                    <div class="cell small-6">
+                        <span asp-validation-for="AccountPassword" class="text-danger"></span>
+                        <label asp-for="AccountPassword">
+                            Account Password
+                            <input asp-for="AccountPassword" />
+                        </label>
+                    </div>
+                    <div class="cell small-6">
+                        <span asp-validation-for="AccountAddress" class="text-danger"></span>
+                        <label asp-for="AccountAddress">
+                            Account Address
+                            <input asp-for="AccountAddress" />
+                        </label>
+                    </div>
+                </div>
+
+
+                <div class="grid-x grid-margin-x">
+
+                    <div class="cell small-6">
+                        <span asp-validation-for="AccountCity" class="text-danger"></span>
+                        <label asp-for="AccountCity">
+                            Account City
+                            <input asp-for="AccountCity" />
+                        </label>
+                    </div>
+                    <div class="cell small-6">
+                        <span asp-validation-for="AccountCountry" class="text-danger"></span>
+                        <label asp-for="AccountCountry">
+                            Account Country
+                            <input asp-for="AccountCountry" />
+                        </label>
+                    </div>
+
+                </div>
+
+                <div class="grid-x grid-margin-x">
+
+                    <div class="cell small-6">
+                        <span asp-validation-for="AccountDescription" class="text-danger"></span>
+                        <label asp-for="AccountDescription">
+                            Account Description
+                            <textarea asp-for="AccountDescription"></textarea>
+                        </label>
+                    </div>
+                    <div class="cell small-6">
+                        <span asp-validation-for="ImgPic" class="text-danger"></span>
+                        <label class="createImg" asp-for="ImgPic">
+                            Select Profile Image
+                            <input type="file" accept="image/*" asp-for="ImgPic" />
+                        </label>
+                    </div>
+
+                </div>
+
+                <div class="grid-x grid-margin-x">
+                    <div class="cell small-6">
+
+                        <p style="color:#000000 !important">Business Log In ? </p>
+
+                        <div class="switch large">
+                            <input class="switch-input" id="yes-no" type="checkbox" asp-for="IsShop">
+                            <label class="switch-paddle" for="yes-no">
+                                <span class="show-for-sr">Business Registration</span>
+                                <span class="switch-active" aria-hidden="true">Yes</span>
+                                <span class="switch-inactive" aria-hidden="true">No</span>
+                            </label>
+                        </div>
+
+                    </div>
+
+                    <div class="cell small-6" style="margin:auto !important">
+                        <button type="submit" class="button">Register Account</button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+    <div class="cell">
+        <div class="grid-container">
+            <div class="cell auto">
+                <a asp-controller="Account" asp-action="LogIn">Move to Login Page</a>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+

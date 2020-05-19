@@ -1,0 +1,60 @@
+﻿@model TechnicianModel
+@{
+    ViewData["Title"] = "ShopTech";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string alert = ViewBag.TechSuccess;
+
+    if (alert != null)
+    {
+        <div class="callout success" data-closable>
+            <h3>@alert</h3>
+            <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+}
+
+<h1>ShopTech</h1>
+
+<!--Flaw in the AssignedTechDb, primary[key] is supposed to be in the ShopTechDb-->
+
+<form id="forms1" asp-action="ShopTech" asp-controller="Account" method="post">
+    <div class="grid-container fluid">
+        <div class="grid-x grid-margin-x">
+
+            <div class="cell small-6">
+                <label asp-for="TechnicianName">
+                    Enter Technician Name
+                    <input asp-for="TechnicianName" />
+                </label>
+            </div>
+            <div class="cell small-6">
+                <label asp-for="TechnicianDescription">
+                    Enter Technician Description
+                    <input asp-for="TechnicianDescription" />
+                </label>
+            </div>
+            <div class="cell small-6">
+                <label>
+                    Enter Service Description
+                    <select id="combobox" class="serviceID" asp-for="AssignedService">
+                        @foreach (var item in Model.ShopServices)
+                        {
+                            <option>@item.ServiceName</option>
+                        }
+                    </select>
+                </label>
+            </div>
+            <div class="cell small-6">
+                <button type="submit" class="button">Add New Service</button>
+            </div>
+            <div class="cell small-6">
+                <a>Assign Service to Technician</a>
+                <a>Return To Shop-Portfolio</a>
+            </div>
+
+        </div>
+    </div>
+</form>

@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    <environment include="Development">
+
+        <link rel="stylesheet" asp-href-include="/lib/node_modules/foundation-sites/dist/**/*.min.css" asp-href-exclude="**/*-reboot*,**/*-grid*" />
+        <link rel="stylesheet" asp-href-include="/lib/node_modules/foundation-icons/**/*.css" />
+
+        <link rel="stylesheet" asp-href-include="/lib/node_modules/font-awesome/css/*.css" />
+
+        <link href="~/lib/node_modules/foundation-sites/dist/css/foundation.css" rel="stylesheet" />
+
+        <script asp-src-include="/lib/node_modules/jquery/dist/**/*.min.js"></script>
+        <script asp-src-include="/lib/node_modules/jquery-validation/dist/**/*.validate.js"></script>
+
+
+        <script asp-src-include="/lib/node_modules/foundation-sites/dist/js/plugins/*.core.js"></script>
+
+        <script asp-src-include="/lib/node_modules/foundation-sites/dist/js/plugins/*.tabs.js"></script>
+
+        <script asp-src-include="/lib/node_modules/foundation-sites/dist/js/plugins/*.slider.js"></script>
+        <script asp-src-include="/lib/node_modules/foundation-sites/dist/js/plugins/*.dropdownMenu.js"></script>
+        <script asp-src-include="/lib/node_modules/foundation-sites/dist/js/plugins/*.foundation.responsiveMenu.js"></script>
+        <script asp-src-include="/lib/node_modules/foundation-sites/dist/js/plugins/*.foundation.responsiveToggle.js"></script>
+
+        <script asp-src-include="/lib/node_modules/foundation-sites/dist/js/*.js"></script>
+
+
+        <script asp-src-include="/lib/node_modules/foundation-sites/dist/js/plugins/*.foundation.util.keyboard.js"></script>
+
+        <script asp-src-include="/lib/node_modules/foundation-sites/dist/js/plugins/*.foundation.util.imageLoader.js"></script>
+
+        <script asp-src-include="/lib/node_modules/foundation-sites/dist/js/plugins/*.foundation.util.triggers.js"></script>
+        <script asp-src-include="/lib/node_modules/foundation-sites/dist/js/plugins/*.foundation.util.mediaQuery.js"></script>
+        <script asp-src-include="/lib/node_modules/foundation-sites/dist/js/plugins/*.foundation.responsiveToggle.js"></script>
+        <script asp-src-include="/lib/node_modules/foundation-sites/dist/js/plugins/*.foundation.util.motion.js"></script>
+
+        <script asp-src-include="/lib/node_modules/jquery-validation-unobtrusive/dist/**/*.js"></script>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/motion-ui@1.2.3/dist/motion-ui.min.css" />
+
+
+        <script src="~/js/site.js?v=1" defer></script>
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+
+    <div class="title-bar" data-responsive-toggle="example-menu" data-hide-for="medium">
+        <button class="menu-icon" type="button" data-toggle="example-menu"></button>
+        <div class="title-bar-title">Menu</div>
+    </div>
+
+    <div class="top-bar" id="example-menu">
+        <div class="top-bar-left">
+            <ul class="dropdown menu" data-dropdown-menu>
+                <li class="menu-text"> Auto Destination</li>
+                <li><a asp-controller="Account" asp-action="Index">About</a></li>
+                <li><a asp-controller="Account" asp-action="LogIn">Register/Login</a></li>
+            </ul>
+        </div>
+        <div class="top-bar-right">
+            <ul class="menu">
+                <li><button type="button" class="button">DashBoard</button></li>
+            </ul>
+        </div>
+    </div>
+
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>

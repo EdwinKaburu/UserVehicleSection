@@ -1,0 +1,54 @@
+﻿@model VehicleReqModel
+@{
+    ViewData["Title"] = "VehReq";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>VehReq</h1>
+<div class="grid-container fluid">
+    <div class="grid-x grid-padding-x">
+        @foreach (var item in Model.Shoppers)
+        {
+
+            <div class="cell small-6">
+                <div class="card">
+                    <div class="card-divider">
+                        <h4>@item.UserName</h4>
+                    </div>
+                    <img src="http://getwallpapers.com/wallpaper/full/6/9/0/157759.jpg">
+                    <div class="card-section">
+
+                        <div class="grid-container fluid">
+                            <div class="grid-x grid-margin-x">
+
+                                <div class="cell small-6">
+                                    <p>Name : @item.UserName</p>
+                                    <p>Email : @item.UserEmail</p>
+                                </div>
+                                <div class="cell small-6">
+                                    <p>Address : @item.UserAddress</p>
+                                    <p>Address : @item.UserCity</p>
+                                    <p>Address : @item.UserCountry</p>
+                                </div>
+                                <div class="cell small-6">
+                                    <p> Description : @item.UserDescription</p>
+                                </div>
+                                <div class="cell small-6">
+                                    <form asp-action="VehReqs" asp-controller="Account" asp-route-vehID="@Model.VehicleID" asp-route-shopID="@item.UserId" method="post">
+
+                                        <button type="submit" class="button">Submit Request</button>
+                                    </form>                                                                       
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            
+            
+        }
+
+    </div>
+</div>

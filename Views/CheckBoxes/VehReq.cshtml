@@ -1,0 +1,22 @@
+﻿@model VehicleReqModel
+@{
+    ViewData["Title"] = "VehReq";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>VehReq</h1>
+
+@foreach (var item in Model.Shoppers)
+{
+    <fieldset class="fieldset">
+        <legend>Select Your Service</legend>
+        @foreach (var items in item.ShopServicesDb)
+        {
+            <label>
+                @items.ServiceName
+                <input id="checkbox" type="checkbox" />
+            </label>
+        }
+    </fieldset>
+}
+

@@ -1,0 +1,31 @@
+﻿@model MessageModel
+
+<form asp-controller="Account" asp-route-vehReqID="@Model.VehReqID" asp-route-shopID="@Model.UserID" asp-action="Message" method="post">
+    <p>@Model.VehReqID</p>
+    <p>@Model.UserID</p>
+    <h2>@ViewData["index"]</h2>
+    <div class="grid-container">
+        <div class="grid-x grid-margin-x">
+
+            <div class="cell small-6">
+                <label>
+                    Message
+                    <textarea asp-for="TextMessage"></textarea>
+                </label>
+            </div>
+
+            <div class="cell small-6">
+                <label>
+                    Date
+                    <input asp-for="DateMessage">
+                </label>
+            </div>
+            <div class="cell">
+                <button type="submit" class="button">Send Message</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
