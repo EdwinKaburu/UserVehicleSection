@@ -2,6 +2,39 @@
 @{
     ViewData["Title"] = "ShopPortfolio";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    @*foreach (var item in Model.ShopReqVehDbs)
+        {
+            foreach (var item1 in item.ServicedHistDb)
+            {
+                if (item.VehicleId.Equals(item1.VehReqId))
+                {
+                    <p>Remove @item.VehReqId</p>
+                }
+            }
+        }
+
+        foreach (var item in Model.ShopReqVehDbs)
+        {
+            <p>@item.VehReqId</p>
+
+            foreach (var item1 in item.ServicedHistDb)
+            {
+
+                <p>H : @item1.VehReqId</p>
+            }
+        }*@
+
+    foreach (var item in Model.ShopReqVehDbs)
+    {
+        foreach (var item1 in item.ServicedHistDb)
+        {
+            if (!item.VehicleId.Equals(item1.VehReqId))
+            {
+                <p>Remove @item.VehReqId</p>
+            }
+        }
+    }
 }
 
 <h1>ShopPortfolio</h1>
@@ -63,7 +96,7 @@
                                 </thead>
                                 <tbody>
 
-                                    @foreach(var item in Model.ShopTeches)
+                                    @foreach (var item in Model.ShopTeches)
                                     {
                                         <tr>
                                             <td>@Model.User.UserName</td>
@@ -77,6 +110,9 @@
                         </div>
                         <div class="cell auto">
                             <a asp-controller="Account" asp-action="ShopTech"> Add New Technician </a>
+                        </div>
+                        <div class="cell auto">
+                            <a asp-controller="Account" asp-action="AssignShopTech">Assign Service To Technician</a>
                         </div>
                     </div>
 
@@ -215,7 +251,7 @@
                         </div>
                     </div>
 
-                  
+
                 </div>
             </div>
         </div>

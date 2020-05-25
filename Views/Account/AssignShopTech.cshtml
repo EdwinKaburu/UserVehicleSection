@@ -1,9 +1,10 @@
 ﻿@model TechnicianModel
 @{
-    ViewData["Title"] = "ShopTech";
+    ViewData["Title"] = "AssignShopTech";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    string alert = ViewBag.TechSuccess;
+
+    string alert = ViewBag.AssignedTechSucess;
 
     if (alert != null)
     {
@@ -14,35 +15,36 @@
             </button>
         </div>
     }
+
 }
 
-<h1>ShopTech</h1>
+<h1>AssignShopTech</h1>
 
-<!--Flaw in the AssignedTechDb, primary[key] is supposed to be in the ShopTechDb-->
 
-<form id="forms1" asp-action="ShopTech" asp-controller="Account" method="post">
+<form id="forms1" asp-action="AssignShopTech" asp-controller="Account" method="post">
     <div class="grid-container fluid">
         <div class="grid-x grid-margin-x">
 
             <div class="cell small-6">
-                <label asp-for="TechnicianName">
-                    Enter Technician Name
-                    <input asp-for="TechnicianName" />
-                </label>
-            </div>
-            <div class="cell small-6">
-                <label asp-for="TechnicianDescription">
-                    Enter Technician Description
-                    <input asp-for="TechnicianDescription" />
+                <label>
+                    Select Services
+                    <select id="combobox" class="serviceID" asp-for="AssignedService">
+                        @foreach (var items in Model.ShopServices)
+                        {
+                            <option>@items.ServiceName</option>
+                        }
+                    </select>
+
+                    @*<input asp-for="TechnicianDescription" />*@
                 </label>
             </div>
             <div class="cell small-6">
                 <label>
-                    Enter Service Name
-                    <select id="combobox" class="serviceID" asp-for="AssignedService">
-                        @foreach (var item in Model.ShopServices)
+                    Assign Selected Technician
+                    <select id="combobox" class="serviceID" asp-for="TechName">
+                        @foreach (var item in Model.TechDbs)
                         {
-                            <option>@item.ServiceName</option>
+                            <option>@item.TechnicianName</option>
                         }
                     </select>
                 </label>
@@ -51,7 +53,6 @@
                 <button type="submit" class="button">Add New Service</button>
             </div>
             <div class="cell small-6">
-                <a asp-controller="Account" asp-action="AssignShopTech">Assign Service to Technician</a>
                 <a asp-action="ShopPortfolio" asp-controller="Account" asp-route-id="@Model.UserCookie" asp-route-status="true">Return To Shop-Portfolio</a>
             </div>
 

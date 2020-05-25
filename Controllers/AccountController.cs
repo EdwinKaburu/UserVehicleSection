@@ -39,7 +39,18 @@ namespace UserVehicleSection.Controllers
             return View(new TechnicianModel
             {
                 ShopServices = _repo.GetShopServices.Where(s => s.UserId.Equals(int.Parse(Request.Cookies["UserID"]))),
+                UserCookie = Request.Cookies["UserID"]
 
+            });
+        }
+
+        public IActionResult AssignShopTech()
+        {
+            return View(new TechnicianModel
+            {
+                ShopServices = _repo.GetShopServices.Where(s => s.UserId.Equals(int.Parse(Request.Cookies["UserID"]))),
+                TechDbs = _repo.GetShopTeches.Where(s => s.UserId.Equals(int.Parse(Request.Cookies["UserID"]))),
+                UserCookie = Request.Cookies["UserID"]
             });
         }
 
@@ -57,7 +68,7 @@ namespace UserVehicleSection.Controllers
 
             bool result = await _repo.CreateServiceHist(servicedHist);
 
-            if(result)
+            if (result)
             {
 
                 //var ServiceReqDb = _repo.GetServiceReqs.Where(a => a.VehReqId.Equals(int.Parse(vehID)));
@@ -71,11 +82,11 @@ namespace UserVehicleSection.Controllers
 
                 var messageObject = _repo.GetMessages.Where(a => a.VehReqId.Equals(int.Parse(vehID))).FirstOrDefault();
 
-                if(messageObject != null)
+                if (messageObject != null)
                 {
                     bool result1 = await _repo.DelMessageObject(messageObject);
 
-                    if(result1)
+                    if (result1)
                     {
                         ViewBag.Serviced = "Message Deleted";
                     }
@@ -92,14 +103,14 @@ namespace UserVehicleSection.Controllers
             //string userID = Request.Cookies["UserID"];
 
             string portFolio = "UserPortfolio";
-            
-            if(Boolean.Parse(redirect))
+
+            if (Boolean.Parse(redirect))
             {
                 portFolio = "ShopPortfolio";
                 //return RedirectToAction("ShopPortfolio", "Account", new { id = shopID, status = true });
             }
             return RedirectToAction(portFolio, "Account", new { id = Request.Cookies["UserID"], status = Request.Cookies["IsShop"] });
-           
+
         }
         [HttpPost]
         public async Task<IActionResult> Message(MessageModel message, [FromQuery(Name = "shopID")] string shopID, [FromQuery(Name = "vehReqID")] string vehReqID)
@@ -136,6 +147,65 @@ namespace UserVehicleSection.Controllers
             //return Content($"{message.TextMessage}\t {message.DateMessage} \t{shopID} \t {vehReqID}");
 
             return RedirectToAction("ShopPortfolio", "Account", new { id = shopID, status = true });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AssignShopTech(TechnicianModel model)
+        {
+            //AssignedTechDb assignTech = new AssignedTechDb();
+
+            //if(ModelState.IsValid)
+            //{
+            //    assignTech.TechnicianId = _repo.GetShopTeches.Where(name => name.TechnicianName.Equals(model.TechName)).FirstOrDefault().TechnicianId;
+            //    assignTech.ServiceId = _repo.GetShopServices.Where(name => name.ServiceName.Equals(model.AssignedService)).FirstOrDefault().ServiceId;
+            //}
+
+            AssignedTechDb assignTech = new AssignedTechDb
+            {
+                TechnicianId = _repo.GetShopTeches.Where(name => name.TechnicianName.Equals(model.TechName)).FirstOrDefault().TechnicianId,
+                ServiceId = _repo.GetShopServices.Where(name => name.ServiceName.Equals(model.AssignedService)).FirstOrDefault().ServiceId
+            };
+
+
+            bool result = await _repo.CreateAssignedTech(assignTech);
+
+            if (result)
+            {
+                ViewBag.AssignedTechSucess = "Services Added to Technician";
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Couldn't Add Shop Services. Try Again With Cookies Enabled");
+            }
+
+            // return Content($"Tech ID {assignTech.TechnicianId} \t Service ID {assignTech.ServiceId}");
+
+            //if (ModelState.IsValid)
+            //{
+            //    AssignedTechDb assignTech = new AssignedTechDb
+            //    {
+            //        TechnicianId = _repo.GetShopTeches.Where(name => name.TechnicianName.Equals(model.TechName)).FirstOrDefault().TechnicianId,
+            //        ServiceId = _repo.GetShopServices.Where(name => name.ServiceName.Equals(model.AssignedService)).FirstOrDefault().ServiceId
+            //    };
+
+            //    bool result = await _repo.CreateAssignedTech(assignTech);
+
+            //    if(result)
+            //    {
+            //        ViewBag.AssignedTechSucess = "Services Added to Technician";
+            //    }
+            //    else
+            //    {
+            //        ModelState.AddModelError(string.Empty, "Couldn't Add Shop Services. Try Again With Cookies Enabled");
+            //    }
+            //}
+
+            return View(new TechnicianModel
+            {
+                ShopServices = _repo.GetShopServices.Where(s => s.UserId.Equals(int.Parse(Request.Cookies["UserID"]))),
+                TechDbs = _repo.GetShopTeches.Where(s => s.UserId.Equals(int.Parse(Request.Cookies["UserID"]))),
+                UserCookie = Request.Cookies["UserID"]
+            });
         }
 
         [HttpPost]
@@ -249,10 +319,44 @@ namespace UserVehicleSection.Controllers
 
             var ShopReqVeh = _repo.GetVehReqs.Where(s => s.UserId.Equals(int.Parse(shopID))).Include(a => a.ServiceReqDb).Include(sp => sp.Vehicle).Include(u => u.Vehicle.User);
 
-            var serviceHist = _repo.GetServicedHists.Where(s => s.UserId.Equals(int.Parse(shopID)));
+            // var serviceHist = _repo.GetServicedHists.Where(s => s.UserId.Equals(int.Parse(shopID)));
 
-            var test = _repo.GetVehReqs.Include(a => a.ServiceReqDb).Include(sp => sp.Vehicle).ThenInclude(s => s.User).Where(vh => vh.UserId.Equals(int.Parse(shopID)));
+            var test = _repo.GetVehReqs.Include(a => a.ServiceReqDb).Include(sp => sp.ServicedHistDb)
+                .Include(sp => sp.Vehicle).ThenInclude(s => s.User).Where(vh => vh.UserId.Equals(int.Parse(shopID)));
 
+            var servicedHistDb = _repo.GetServicedHists;
+
+            var actuall = _repo.GetVehReqs.Include(a => a.ServiceReqDb).Include(sp => sp.ServicedHistDb)
+                .Include(sp => sp.Vehicle).ThenInclude(s => s.User).Where(vh => vh.UserId.Equals(int.Parse(shopID)));
+
+            string returnString = String.Empty;
+
+            foreach (var vehRequest in actuall)
+            {
+                if (vehRequest.ServicedHistDb.Count != 0)
+                {
+                    actuall = actuall.Where(sp => sp != vehRequest);
+                    //returnString += $"Count  {vehRequest.ServicedHistDb.Count} \t VehReqName {vehRequest.VehReqName} \n";
+                }
+            }
+            //if(servicedHistDb.Contains(test.to))
+            //Response.Cookies.Append($"TestCount1", test.Count().ToString());
+
+            //int count = 0;
+            //foreach (var item in test.ToList())
+            //{
+            //    foreach (var item1 in item.ServicedHistDb.ToList())
+            //    {
+            //        if (!item.VehReqId.Equals(item1.VehReqId))
+            //        {
+            //            //Response.Cookies.Append($"Remove{count}", item.VehReqId.ToString());
+            //            test.ToList().Remove(item);
+            //        }
+            //    }
+            //    //count++;
+            //}
+
+            //Response.Cookies.Append($"TestCount2", test.Count().ToString());
             //foreach (var item in test)
             //{
             //    foreach(var item1 in serviceHist)
@@ -270,12 +374,13 @@ namespace UserVehicleSection.Controllers
                 User = _repo.GetUserDbs.Where(s => s.UserId.Equals(int.Parse(shopID))).Include(s => s.Image).FirstOrDefault(),
                 ShopTeches = _repo.GetShopTeches.Where(s => s.UserId.Equals(int.Parse(shopID))).Include(a => a.AssignedTechDb),
                 ShopServices = _repo.GetShopServices.Where(s => s.UserId.Equals(int.Parse(shopID))),
-                ShopReqVehDbs = test
+                ShopReqVehDbs = actuall
                 //ShopReqVehDbs = _repo.GetVehReqs.Where(s=> s.UserId.Equals(int.Parse(shopID))).Include(a => a.ServiceReqDb).Include(sp => sp.Vehicle).Include(u => u.Vehicle.User),
                 //ShopserviceReqs = _repo.GetServiceReqs.Include(a => a.)
 
                 //ShopserviceReqs = _repo.GetServiceReqs
             };
+            //return Content(returnString);
             return View(shop_user);
         }
 
@@ -406,7 +511,7 @@ namespace UserVehicleSection.Controllers
         {
             return View(new ListView
             {
-                Results = _repo.GetVehichleMakesAsync().Result.Take(20)
+                Results = _repo.GetVehichleMakesAsync().Result
             });
         }
 
@@ -435,17 +540,17 @@ namespace UserVehicleSection.Controllers
 
 
             var vehServicedHist = _repo.GetServicedHists.Include(sp => sp.VehReq).ThenInclude(uv => uv.Vehicle).Where(ap => ap.VehReq.Vehicle.UserId.Equals(int.Parse(userID)));
-           //  --------------- >>> var servicedHistDb = _repo.GetServicedHists.Include(ap => ap.VehReq).ThenInclude(sp => sp.Vehicle).Where(sp => sp.VehReq.Vehicle.UserId.Equals(int.Parse(userID)));
+            //  --------------- >>> var servicedHistDb = _repo.GetServicedHists.Include(ap => ap.VehReq).ThenInclude(sp => sp.Vehicle).Where(sp => sp.VehReq.Vehicle.UserId.Equals(int.Parse(userID)));
 
 
             //var testringReq = _repo.GetVehReqs.Include(sh => sh.ServicedHistDb).Include(op => op.MessageDb)
             //    .Where(sa => sa.veh)
             //var Message = _repo.GetMessages
-            
+
 
             //var history = _repo.GetServicedHists.Where(sp => sp.VehReqId.Equals(userVehReq.))
-           // var testing = _repo.GetVehReqs.Include()
-           //
+            // var testing = _repo.GetVehReqs.Include()
+            //
 
 
             //var testing = _repo.GetVehReqs.Include(s => s.MessageDb).ThenInclude(sp => sp.)
@@ -457,7 +562,7 @@ namespace UserVehicleSection.Controllers
             var user = new UserListVIew
             {
                 User = _repo.GetUserDbs.Where(s => s.UserId.Equals(int.Parse(userID))).Include(s => s.Image).FirstOrDefault(),
-               // UserVehDbs = _repo.GetUserVehs.Where(s => s.UserId.Equals(int.Parse(userID))),
+                // UserVehDbs = _repo.GetUserVehs.Where(s => s.UserId.Equals(int.Parse(userID))),
                 UserVehDbs = userVehReq,
                 UserReqDbs = VehReqSection,
                 MessageDbs = message,

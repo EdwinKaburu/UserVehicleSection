@@ -13,12 +13,19 @@ namespace UserVehicleSection.ViewModels
         //public int ShopID { get; set; }
         public IEnumerable<ShopServicesDb> ShopServices { get; set; }
 
+        public string UserCookie { get; set; }
+
         [Required]
         public string TechnicianName { get; set; }
 
         [Required]
         public string TechnicianDescription { get; set; }
 
+
         public string AssignedService { get; set; }
+
+        public IEnumerable<ShopTechDb> TechDbs { get; set; }
+
+        public string TechName { get; set; }
     }
 }
