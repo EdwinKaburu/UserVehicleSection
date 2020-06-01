@@ -299,3 +299,4 @@ C:\Users\edwinPC\Documents\ProjectDraft\UserVehicleSection\obj\Debug\netcoreapp3
 C:\Users\edwinPC\Documents\ProjectDraft\UserVehicleSection\obj\Debug\netcoreapp3.1\UserVehicleSection.pdb
 C:\Users\edwinPC\Documents\ProjectDraft\UserVehicleSection\obj\Debug\netcoreapp3.1\UserVehicleSection.genruntimeconfig.cache
 C:\Users\edwinPC\Documents\ProjectDraft\UserVehicleSection\obj\Debug\netcoreapp3.1\Razor\Views\Account\AssignShopTech.cshtml.g.cs
+C:\Users\edwinPC\Documents\ProjectDraft\UserVehicleSection\obj\Debug\netcoreapp3.1\UserVehicleSection.csprojAssemblyReference.cache
