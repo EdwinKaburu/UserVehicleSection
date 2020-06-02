@@ -7,6 +7,76 @@ body {
     margin-top: 20px;
 }
 
+.tabs-panel {
+    color: #ffffff;
+}
+
+/*portfolioSec{
+    color:#ffffff;
+}*/
+
+.tabs {
+    background: #272727;
+    border: 1px solid #525050;
+}
+
+.tabs-title > a:hover, .tabs-title > a:focus, .tabs-title > a[aria-selected="true"] {
+    background: #444343;
+}
+
+/*For the Portfolio Section*/
+
+
+.grid-container.fluid {
+    padding-right: .0rem;
+    padding-left: .0rem;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card {
+    border: 1px solid #000000;
+    border-radius: 15px;
+    background: #191919;
+    color: #ffffff;
+    display: flex;
+    box-shadow: none;
+    overflow: hidden;
+    flex-grow: 1;
+    margin-bottom: 1rem;
+    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-box-flex: 1;
+}
+
+/*.hover {
+    background-color:#ff0000 !important;
+}*/
+.hover tbody tr:hover td, .hover thead tr:hover th {
+    background-color: #313030;
+}
+
+.button:hover {
+    background-color: #12ad00 !important;
+}
+
+#map {
+    width: 1100px;
+    height: 600px;
+}
+
+/*@media print, screen and (min-width: 40em) .grid-container.fluid {
+    padding-right: 0rem;
+    padding-left: 0rem;
+}*/
+
+
+/*.cell{
+    color:#ffffff;
+}*/
+
 .text-danger {
     color: #ff0000;
 }

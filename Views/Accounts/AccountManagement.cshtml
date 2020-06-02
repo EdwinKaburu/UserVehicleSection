@@ -1,0 +1,56 @@
+﻿@model AccountPort
+@{
+    ViewData["Title"] = "AccountManagement";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+    string alert = ViewBag.Set;
+
+    if (alert != null)
+    {
+        <div class="callout success" data-closable>
+            <h5>Vehicle Successfully Added</h5>
+            <p>You can Redirect Back to the User Profile</p>
+            <p>I'm using the default <code>data-closable</code> parameters, and simply fade out.</p>
+            <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    SignInModel signInModel = new SignInModel();
+
+    //signInModel = Model.SignIn;
+
+    RegiserModel regiserModel = new RegiserModel();
+
+    //regiserModel = Model.RegiserModel;
+}
+<br />
+
+<div id="AccountInfo">
+    <ul class="tabs" data-tabs id="example-tabs">
+        <li class="tabs-title is-active"><a href="#panel1" aria-selected="true">Log In</a></li>
+        <li class="tabs-title"><a data-tabs-target="panel2" href="#panel2">Register</a></li>
+    </ul>
+
+
+    <div class="tabs-content" data-tabs-content="example-tabs">
+        <div class="tabs-panel is-active" id="panel1">
+
+            @await Html.PartialAsync("_LogInSection.cshtml",signInModel);
+
+            @*<partial name="_LogInSection" />*@
+        </div>
+
+        <div class="tabs-panel" id="panel2">
+
+            @await Html.PartialAsync("_RegisterSection.cshtml",regiserModel);
+
+            @*<partial name="_RegisterSection" />*@
+        </div>
+
+
+    </div>
+</div>
+

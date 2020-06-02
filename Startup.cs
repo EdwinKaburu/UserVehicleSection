@@ -89,7 +89,7 @@ namespace UserVehicleSection
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Account}/{action=Register}/{id?}");
+                    pattern: "{controller=Accounts}/{action=AccountManagement}/{id?}");
             });
         }
     }

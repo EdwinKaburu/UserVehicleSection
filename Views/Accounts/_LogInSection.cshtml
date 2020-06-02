@@ -1,0 +1,30 @@
+﻿@model SignInModel
+
+<form asp-controller="Accounts" asp-action="_LogInSection" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="grid-container fluid">
+
+        <div class="grid-x grid-margin-x">
+            <div class="cell small-6">
+                <span asp-validation-for="UserName" class="text-danger"></span>
+                <label asp-for="UserName">
+                    Account Name
+                    <input asp-for="UserName" />
+                </label>
+            </div>
+            <div class="cell small-6">
+                <span asp-validation-for="Password" class="text-danger"></span>
+                <label asp-for="Password">
+                    Account Password
+                    <input asp-for="Password" />
+                </label>
+
+            </div>
+            <div class="cell shrink">
+                <button type="submit" class="button">Log In</button>
+            </div>
+        </div>
+
+    </div>
+</form>
+

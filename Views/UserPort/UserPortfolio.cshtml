@@ -1,0 +1,276 @@
+﻿@model UserListVIew
+@{
+    ViewData["Title"] = "UserPortfolio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+
+
+<div class="grid-container fluid">
+    <div class="grid-x">
+        <div class="cell shrink">
+            <ul class="vertical tabs" data-tabs id="example-tabs">
+                <li class="tabs-title is-active"><a href="#panel1v" aria-selected="true">Profile</a></li>
+                <li class="tabs-title"><a href="#panel2v">Vehicles</a></li>
+                <li class="tabs-title"><a href="#panel3v">Messages</a></li>
+            </ul>
+        </div>
+        <div class="cell auto">
+            <div class="tabs-content vertical" data-tabs-content="example-tabs">
+
+                <div class="tabs-panel is-active" id="panel1v">
+
+                    <div class="grid-container fluid">
+                        <div class="grid-x">
+                            <div class="cell shrink">
+                                <div class="card">
+
+                                    <img  src="https://get.foundation/sites/docs/assets/img/orbit/02.jpg">
+
+                                    <div class="card-section">
+
+                                        <div class="grid-container fluid">
+
+                                            <div class="grid-x grid-margin-x">
+
+                                                <div class="cell small-6">
+                                                    <label>Name</label>
+                                                </div>
+                                                <div class="cell small-6">
+                                                    <label>@Model.User.UserName</label>
+                                                </div>
+
+                                                <div class="cell small-6">
+                                                    <label>Email</label>
+                                                </div>
+                                                <div class="cell small-6">
+                                                    <label>@Model.User.UserEmail</label>
+                                                </div>
+
+                                                <div class="cell small-6">
+                                                    <label>Address</label>
+                                                </div>
+                                                <div class="cell small-6">
+                                                    <label>@Model.User.UserAddress</label>
+                                                </div>
+
+                                                <div class="cell small-6">
+                                                    <label>City</label>
+                                                </div>
+                                                <div class="cell small-6">
+                                                    <label>@Model.User.UserCity</label>
+                                                </div>
+
+
+                                                <div class="cell small-6">
+                                                    <label>County/Country/Region</label>
+                                                </div>
+                                                <div class="cell small-6">
+                                                    <label>@Model.User.UserCountry</label>
+                                                </div>
+
+
+                                                <div class="cell small-6">
+                                                    <label>Description</label>
+                                                </div>
+                                                <div class="cell small-6">
+                                                    <label>@Model.User.UserDescription</label>
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="cell shrink" style="margin-left:10px">
+
+
+                                <div class="grid-container fluid">
+
+                                    <div class="grid-x">
+
+                                        <div class="cell auto">
+                                            <button type="submit" class="button">Sign Out</button>
+                                            <button type="submit" class="button">Edit Profile</button>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="tabs-panel" id="panel2v">
+
+                    <ul class="tabs" data-tabs id="example-tabs">
+                        <li class="tabs-title is-active"><a href="#panel1" aria-selected="true">Your Vehicles</a></li>
+                        <li class="tabs-title"><a data-tabs-target="panel2" href="#panel2">Services History</a></li>
+                    </ul>
+
+
+                    <div class="tabs-content" data-tabs-content="example-tabs">
+                        <div class="tabs-panel is-active" id="panel1">
+
+                            <div class="grid-container fluid">
+
+                                <div class="cell">
+                                    <table class="hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Vehicle Make</th>
+                                                <th>Vehicle Model</th>
+                                                <th>Vehicle Year</th>
+                                                <th>Vehicle Mileage</th>
+                                                <th>Vehicle Vin Number</th>
+                                                <th>Vehicle Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.UserVehDbs)
+                                            {
+                                                <tr>
+                                                    <td>@item.VehicleMake</td>
+                                                    <td>@item.VehicleModel</td>
+                                                    <td>@item.VehicleYear</td>
+                                                    <td>@item.VehicleMileage</td>
+                                                    <td>@item.VehicleVinNum</td>
+                                                    <td>
+                                                        <div class="primary button-group">
+                                                            <a onclick="location.href='@(Url.Action("GetShoppersReq","UserPort", new { vehID = item.VehicleId }))'" class="button">Submit Vehicle Request</a>
+                                                        </div>
+
+                                                    </td>
+                                                </tr>
+                                            }
+                                            <tr>
+                                                <td>Honda</td>
+                                                <td>Accord</td>
+                                                <td>2005</td>
+                                                <td>345732</td>
+                                                <td>A37873H322</td>
+                                                <td>
+                                                    @*<p><button class="button" data-open="exampleModal11">Click me for a modal</button></p>*@
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="cell auto">
+                                    <a class="button" asp-controller="Account" asp-action="Vehicle" asp-route-id="@Model.User.UserId"> Add New Vehicle </a>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="tabs-panel" id="panel2">
+
+                            @foreach (var item in Model.ServicedHistDbs)
+                            {
+                            <p> Serviced : @item.Serviced</p>
+
+                            <p> VehicleReqName : @item.VehReq.VehReqName</p>
+
+                            <p> VehicleReq ID : @item.VehReq.VehReqId</p>
+
+                            <p> Vehicle: @item.VehReq.Vehicle.VehicleMake</p>
+
+                            <br /><br />
+                            }
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <div class="tabs-panel" id="panel3v">
+
+                    <div class="grid-container fluid">
+                        <div class="cell">
+
+                            <table class="hover">
+                                <thead>
+                                    <tr>
+                                        <th>Shop</th>
+                                        <th>Message</th>
+                                        <th>Message Date</th>
+                                        <th>Request Name</th>
+                                        <th>Request Date</th>
+                                        <th>Vehicle Name</th>
+                                        <th>Services</th>
+                                        <th>Service Cost</th>
+                                        <th>Vehicle Owner</th>
+
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @{
+                                        foreach (var alert in Model.MessageDbs)
+                                        {
+                                            decimal? totalCost = 0.0m;
+                                            string reqSer = String.Empty;
+
+                                            foreach (var service in alert.VehReq.ServiceReqDb)
+                                            {
+                                                totalCost += service.Assign.Service.ServiceCost;
+                                                reqSer += $"{service.Assign.Service.ServiceName} : {service.Assign.Service.ServiceCost}\n";
+                                            }
+
+                                            <tr>
+                                                <td>@alert.User.UserName</td>
+                                                <td>@alert.Message</td>
+                                                <td>@alert.MessageDate.Value</td>
+                                                <td>@alert.VehReq.VehReqName</td>
+                                                <td>@alert.VehReq.VehReqDate</td>
+                                                <td>@alert.VehReq.Vehicle.VehicleMake</td>
+                                                <td>@reqSer</td>
+                                                <td>@totalCost</td>
+                                                <td>@alert.VehReq.Vehicle.User.UserName</td>
+
+                                                <td>
+                                                    <div class="primary button-group">
+                                                        <a onclick="location.href='@(Url.Action("Serviced","Account", new { vehID = alert.VehReqId, shopID = alert.User.UserId,serCost = totalCost, acceptance = true , shopPortfolio = false }))'" class="button">
+                                                            Accept
+                                                        </a>
+                                                        <a onclick="location.href='@(Url.Action("Serviced","Account", new { vehID = alert.VehReqId, shopID = alert.User.UserId,serCost = totalCost, acceptance = false , shopPortfolio = false }))'" class="button">
+                                                            Decline
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
