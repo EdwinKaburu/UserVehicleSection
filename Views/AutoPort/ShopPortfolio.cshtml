@@ -1,0 +1,316 @@
+﻿@model ShopListView
+
+@{
+    ViewData["Title"] = "ShopPortfolio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+
+
+<div class="grid-container fluid">
+    <div class="grid-x">
+        <div class="cell shrink">
+            <ul class="vertical tabs" data-tabs id="example-tabs">
+                <li class="tabs-title is-active"><a href="#panel1v" aria-selected="true">Profile</a></li>
+                <li class="tabs-title"><a href="#panel2v">Technicians</a></li>
+                <li class="tabs-title"><a href="#panel3v">Shop Services</a></li>
+                <li class="tabs-title"><a href="#panel4v">Requests</a></li>
+            </ul>
+        </div>
+        <div class="cell auto">
+            <div class="tabs-content vertical" data-tabs-content="example-tabs">
+
+                <div class="tabs-panel is-active" id="panel1v">
+
+                    <div class="grid-container fluid">
+                        <div class="grid-x">
+                            <div class="cell shrink">
+                                <div class="card" >
+
+                                    <img src="https://get.foundation/sites/docs/assets/img/orbit/02.jpg">
+
+                                    <div class="card-section">
+
+                                        <div class="grid-container fluid">
+
+                                            <div class="grid-x grid-margin-x">
+
+                                                <div class="cell small-6">
+                                                    <label>Name</label>
+                                                </div>
+                                                <div class="cell small-6">
+                                                    <label>@Model.User.UserName</label>
+                                                </div>
+
+                                                <div class="cell small-6">
+                                                    <label>Email</label>
+                                                </div>
+                                                <div class="cell small-6">
+                                                    <label>@Model.User.UserEmail</label>
+                                                </div>
+
+                                                <div class="cell small-6">
+                                                    <label>Address</label>
+                                                </div>
+                                                <div class="cell small-6">
+                                                    <label>@Model.User.UserAddress</label>
+                                                </div>
+
+                                                <div class="cell small-6">
+                                                    <label>City</label>
+                                                </div>
+                                                <div class="cell small-6">
+                                                    <label>@Model.User.UserCity</label>
+                                                </div>
+
+
+                                                <div class="cell small-6">
+                                                    <label>County/Country/Region</label>
+                                                </div>
+                                                <div class="cell small-6">
+                                                    <label>@Model.User.UserCountry</label>
+                                                </div>
+
+
+                                                <div class="cell small-6">
+                                                    <label>Description</label>
+                                                </div>
+                                                <div class="cell small-6">
+                                                    <label>@Model.User.UserDescription</label>
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="cell shrink" style="margin-left:10px">
+
+
+                                <div class="grid-container fluid">
+
+                                    <div class="grid-x">
+
+                                        <div class="cell auto">
+                                            <button type="submit" class="button">Sign Out</button>
+                                            <button type="submit" class="button">Edit Profile</button>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="tabs-panel" id="panel2v">
+
+                    <div class="grid-container fluid">
+                        <div class="cell">
+                            <table class="hover">
+                                <thead>
+                                    <tr>
+                                        <th>Shop</th>
+                                        <th>Technician Name</th>
+                                        <th>Technician Description</th>
+                                        <th>Assigned Services</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in Model.ShopTeches)
+                                    {
+                                       
+                                        <tr>
+                                            <td>@Model.User.UserName</td>
+                                            <td>@item.TechnicianName</td>
+                                            <td>@item.TechnicianDescription</td>
+
+                                            <td>
+                                                @foreach (var item1 in item.AssignedTechDb)
+                                                {
+                                                    if (item1.Equals(item.AssignedTechDb.LastOrDefault()))
+                                                    {
+                                                        @item1.Service.ServiceName
+                                                    }
+                                                    else
+                                                    {
+                                                        @item1.Service.ServiceName <a>,</a>
+                                                    }
+
+                                                }
+                                            </td>
+                                            @*<td>@item.AssignedTechDb.Where(a => a.TechnicianId.Equals(item.TechnicianId))</td>*@
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="cell auto">
+                            <a class="button" asp-controller="AutoPort" asp-action="ShopTech"> Add New Technician </a>
+                            <a class="button" asp-controller="AutoPort" asp-action="AssignShopTech">Assign Service To Technician</a>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="tabs-panel" id="panel3v">
+
+                    <div class="grid-container fluid">
+                        <div class="cell">
+                            <table class="hover">
+                                <thead>
+                                    <tr>
+                                        <th>Service Name</th>
+                                        <th>Service Cost</th>
+                                        <th>Service Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in Model.ShopServices)
+                                    {
+                                        <tr>
+                                            <td>@item.ServiceName</td>
+                                            <td>@item.ServiceCost</td>
+                                            <td>@item.ServiceDescription</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="cell auto">
+                            <a class="button" asp-controller="AutoPort" asp-action="ShopServices" asp-route-shopID="@Model.User.UserId"> Add New Service </a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="tabs-panel" id="panel4v">
+                    <div class="grid-container fluid">
+                        <div class="cell">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Shop ID</th>
+                                        <th>Veh Req ID</th>
+                                        <th>Request Name</th>
+                                        <th>Request Date</th>
+                                        <th>Request Message</th>
+                                        <th>Vehicle Owner</th>
+                                        <th>Vehicle Make</th>
+                                        <th>Vehicle Model</th>
+                                        <th>Vehicle Year</th>
+                                        <th>Vehicle Mileage</th>
+                                        <th>Service Request</th>
+                                        <th>Service Cost</th>
+                                        <th>Technician Name</th>
+                                        <th>Store Name</th>
+                                        <th>Accept</th>
+                                        <th>Compromise</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        int count = 0;
+                                        foreach (var ite in Model.ShopReqVehDbs)
+                                        {
+                                            string modula = $"sendMessage{count}";
+
+                                            string reqSer = String.Empty;
+                                            decimal? totalCost = 0.0m;
+                                            string technicians = String.Empty;
+
+                                            MessageModel message = new MessageModel
+                                            {
+                                                UserID = ite.User.UserId,
+                                                VehReqID = ite.VehReqId
+                                            };
+
+                                            foreach (var service in ite.ServiceReqDb)
+                                            {
+                                                reqSer += service.Assign.Service.ServiceName + ",";
+                                                technicians += service.Assign.Technician.TechnicianName + ",";
+                                                totalCost += service.Assign.Service.ServiceCost;
+                                            }
+
+                                            <tr>
+                                                <td>@ite.User.UserId</td>
+                                                <td>@ite.VehReqId</td>
+
+                                                <td>@ite.VehReqName</td>
+                                                <td>@ite.VehReqDate</td>
+                                                <td>@ite.VehReqMessage</td>
+                                                <td>@ite.Vehicle.User.UserName</td>
+                                                <td>@ite.Vehicle.VehicleMake</td>
+                                                <td>@ite.Vehicle.VehicleModel</td>
+                                                <td>@ite.Vehicle.VehicleYear</td>
+                                                <td>@ite.Vehicle.VehicleMileage</td>
+                                                <td>@reqSer</td>
+                                                <td>@totalCost</td>
+                                                <td>@technicians</td>
+                                                <td>@ite.User.UserName</td>
+                                                <td>
+                                                    <div class="primary button-group">
+                                                        <a onclick="location.href='@(Url.Action("Serviced","Accounts", new { vehID = ite.VehReqId, shopID = ite.User.UserId,serCost = totalCost, acceptance = true , shopPortfolio = true }))'" class="button">Accept</a>
+                                                        @*<a class="button" data-toggle="@modula">Compromise</a>*@
+                                                    </div>
+
+                                                    @*<div class="reveal" id="@modula" data-reveal data-overlay="false">
+
+                                                        @await Html.PartialAsync("_MessageSection.cshtml", message);
+
+                                                        <p>Send to :  @ite.Vehicle.User.UserName</p>
+                                                        <button class="close-button" data-close aria-label="Close reveal" type="button">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>*@
+
+                                                </td>
+                                                <td>
+                                                    <a class="button" data-toggle="@modula">Compromise</a>
+
+                                                    <div class="reveal" id="@modula" data-reveal data-overlay="false">
+
+                                                        @await Html.PartialAsync("_MessageSection.cshtml", message);
+
+                                                        <p>Send to :  @ite.Vehicle.User.UserName</p>
+                                                        <button class="close-button" data-close aria-label="Close reveal" type="button">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+
+                                                </td>
+
+                                                @*<td>@modula</td>*@
+                                            </tr>
+                                            count++;
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+

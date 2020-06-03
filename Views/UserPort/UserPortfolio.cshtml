@@ -166,7 +166,7 @@
                                 </div>
 
                                 <div class="cell auto">
-                                    <a class="button" asp-controller="Account" asp-action="Vehicle" asp-route-id="@Model.User.UserId"> Add New Vehicle </a>
+                                    <a class="button" asp-controller="UserPort" asp-action="Vehicle" asp-route-UserID="@Model.User.UserId"> Add New Vehicle </a>
                                 </div>
 
                             </div>
@@ -244,10 +244,10 @@
 
                                                 <td>
                                                     <div class="primary button-group">
-                                                        <a onclick="location.href='@(Url.Action("Serviced","Account", new { vehID = alert.VehReqId, shopID = alert.User.UserId,serCost = totalCost, acceptance = true , shopPortfolio = false }))'" class="button">
+                                                        <a onclick="location.href='@(Url.Action("Serviced","Accounts", new { vehID = alert.VehReqId, shopID = alert.User.UserId,serCost = totalCost, acceptance = true , shopPortfolio = false }))'" class="button">
                                                             Accept
                                                         </a>
-                                                        <a onclick="location.href='@(Url.Action("Serviced","Account", new { vehID = alert.VehReqId, shopID = alert.User.UserId,serCost = totalCost, acceptance = false , shopPortfolio = false }))'" class="button">
+                                                        <a onclick="location.href='@(Url.Action("Serviced","Accounts", new { vehID = alert.VehReqId, shopID = alert.User.UserId,serCost = totalCost, acceptance = false , shopPortfolio = false }))'" class="button">
                                                             Decline
                                                         </a>
                                                     </div>

@@ -25,6 +25,66 @@ namespace UserVehicleSection.Controllers
             _repo = repository;
         }
 
+        [HttpGet()]
+        public async Task<IActionResult> Serviced([FromQuery(Name = "vehID")] string vehID, [FromQuery(Name = "shopID")] string shopID,
+            [FromQuery(Name = "serCost")] string totalCost, [FromQuery(Name = "acceptance")] string condition, [FromQuery(Name = "shopPortfolio")] string redirect)
+        {
+            ServicedHistDb servicedHist = new ServicedHistDb
+            {
+                VehReqId = int.Parse(vehID),
+                Cost = decimal.Parse(totalCost),
+                Serviced = Boolean.Parse(condition),
+                UserId = int.Parse(shopID)
+            };
+
+            bool result = await _repo.CreateServiceHist(servicedHist);
+
+            if (result)
+            {
+
+                //var ServiceReqDb = _repo.GetServiceReqs.Where(a => a.VehReqId.Equals(int.Parse(vehID)));
+
+                //var message = _repo.GetMessages.Where(a => a.VehReqId.Equals(int.Parse(vehID)));
+
+                //var vehRequest = _repo.GetVehReqs.Where
+                //if(Boolean.Parse(condition).Equals(true))
+
+                //bool result1 = await _repo.de
+
+                var messageObject = _repo.GetMessages.Where(a => a.VehReqId.Equals(int.Parse(vehID))).FirstOrDefault();
+
+                if (messageObject != null)
+                {
+                    bool result1 = await _repo.DelMessageObject(messageObject);
+
+                    if (result1)
+                    {
+                        ViewBag.Serviced = "Message Deleted";
+                    }
+                }
+
+                //ViewBag.Serviced = "Car Serviced Now in History Section";                
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Couldn't Add Shop Services. Try Again With Cookies Enabled");
+            }
+
+            //string isShop = Request.Cookies["IsShop"];
+            //string userID = Request.Cookies["UserID"];
+
+            string portFolio = "UserPortfolio";
+            string control = "UserPort";
+            if (Boolean.Parse(redirect))
+            {
+                portFolio = "ShopPortfolio";
+                control = "AutoPort";
+                //return RedirectToAction("ShopPortfolio", "Account", new { id = shopID, status = true });
+            }
+            return RedirectToAction(portFolio, control, new { id = Request.Cookies["UserID"], status = Request.Cookies["IsShop"] });
+
+        }
+
 
 
         public IActionResult AccountManagement()
@@ -120,7 +180,7 @@ namespace UserVehicleSection.Controllers
                         // return RedirectToAction("Vehicle", "Account",new {id = user.UserId });
                         if (user.IsShop == true)
                         {
-                            return RedirectToAction("ShopPortfolio", "Account", new { id = user.UserId, status = user.IsShop });
+                            return RedirectToAction("ShopPortfolio", "AutoPort", new { id = user.UserId, status = user.IsShop });
                         }
                         else
                         {

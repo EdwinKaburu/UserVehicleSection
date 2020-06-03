@@ -51,6 +51,16 @@ body {
     -webkit-box-flex: 1;
 }
 
+.reveal{
+    z-index:1006;
+    padding:1rem;
+    border: 1px solid #272727;
+    background-color:#121212;
+    overflow-y:auto;
+    border-radius:15px;
+    color:#ffffff;
+}
+
 /*.hover {
     background-color:#ff0000 !important;
 }*/
@@ -87,4 +97,11 @@ body {
     width: 100%;
     white-space: nowrap;
     line-height: 60px; /* Vertically center the text there */
+}
+
+
+
+option {
+    color: #f5f5f5;
+    background-color: #272727;
 }

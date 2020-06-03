@@ -49,7 +49,7 @@
                                         </div>
 
                                         <div class="cell small-6">
-                                            <form asp-action="VehReqs" asp-controller="Account" asp-route-vehID="@Model.VehicleID" asp-route-shopID="@item.UserId" method="post">
+                                            <form asp-action="VehReqs" asp-controller="UserPort" asp-route-vehID="@Model.VehicleID" asp-route-shopID="@items.UserId" method="post">
 
                                                 <button type="submit" class="button">Submit Request</button>
                                             </form>

@@ -1,0 +1,59 @@
+﻿@model TechnicianModel
+
+@{
+    ViewData["Title"] = "ShopTech";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+    string alert = ViewBag.TechSuccess;
+
+    if (alert != null)
+    {
+        <div class="callout success" data-closable>
+            <h3>@alert</h3>
+            <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+}
+
+<form id="forms1" asp-action="ShopTech" asp-controller="AutoPort" method="post">
+    <div class="grid-container fluid">
+        <div class="grid-x grid-margin-x">
+
+            <div class="cell small-6">
+                <label asp-for="TechnicianName">
+                    Enter Technician Name
+                    <input asp-for="TechnicianName" />
+                </label>
+            </div>
+            <div class="cell small-6">
+                <label asp-for="TechnicianDescription">
+                    Enter Technician Description
+                    <input asp-for="TechnicianDescription" />
+                </label>
+            </div>
+            <div class="cell small-6">
+                <label>
+                    Enter Service Name
+                    <select id="combobox" class="serviceID" asp-for="AssignedService">
+                        @foreach (var item in Model.ShopServices)
+                        {
+                            <option>@item.ServiceName</option>
+                        }
+                    </select>
+                </label>
+            </div>
+            <div class="cell small-6">
+                <button type="submit" class="button">Add New Technician </button>
+                <a class="button" asp-controller="AutoPort" asp-action="AssignShopTech">Assign Service to Technician</a>
+            </div>
+            <div class="cell small-6">              
+                <a asp-controller="AutoPort" asp-action="ShopPortfolio" asp-route-id="@Model.UserCookie" asp-route-status="true">Return To Shop-Portfolio</a>
+            </div>
+
+        </div>
+    </div>
+</form>
