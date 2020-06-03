@@ -1,0 +1,126 @@
+﻿@model VehicleReqModel
+@{
+    ViewData["Title"] = "GetShoppersReq";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+
+
+
+<div class="grid-container fluid">
+
+    <div class="grid-x">
+
+        <div class="cell">
+            <div id='map'></div>
+        </div>
+
+        <div class="cell">
+
+            <div class="grid-container fluid">
+
+                <div class="grid-x">
+
+                    @foreach (var items in Model.Shoppers)
+                    {
+                        <div class="cell small-6">
+
+                            <div class="card">
+
+                                <div class="card-divider">
+                                    <h4>@items.UserName</h4>
+                                </div>
+
+                                <img src="http://getwallpapers.com/wallpaper/full/6/9/0/157759.jpg">
+
+                                <div class="card-section">
+
+                                    <div class="grid-container fluid">
+
+                                        <div class="cell small-6">
+                                            <label>Name</label>
+                                        </div>
+                                        <div class="cell small-6">
+                                            <label>@items.UserName</label>
+                                        </div>
+
+                                        <div class="cell small-6">
+                                            <form asp-action="VehReqs" asp-controller="UserPort" asp-route-vehID="@Model.VehicleID" asp-route-shopID="@items.UserId" method="post">
+
+                                                <button type="submit" class="button">Submit Request</button>
+                                            </form>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@*<div class="grid-container fluid">
+        <div class="grid-x grid-padding-x">
+            @foreach (var item in Model.Shoppers)
+            {
+
+                <div class="cell small-6">
+                    <div class="card">
+                        <div class="card-divider">
+                            <h4>@item.UserName</h4>
+                        </div>
+                        <img src="http://getwallpapers.com/wallpaper/full/6/9/0/157759.jpg">
+                        <div class="card-section">
+
+                            <div class="grid-container fluid">
+                                <div class="grid-x grid-margin-x">
+
+                                    <div class="cell small-6">
+                                        <p>Name : @item.UserName</p>
+                                        <p>Email : @item.UserEmail</p>
+                                    </div>
+                                    <div class="cell small-6">
+                                        <p>Address : @item.UserAddress</p>
+                                        <p>Address : @item.UserCity</p>
+                                        <p>Address : @item.UserCountry</p>
+                                    </div>
+                                    <div class="cell small-6">
+                                        <p> Description : @item.UserDescription</p>
+                                    </div>
+                                    <div class="cell small-6">
+                                        <form asp-action="VehReqs" asp-controller="Account" asp-route-vehID="@Model.VehicleID" asp-route-shopID="@item.UserId" method="post">
+
+                                            <button type="submit" class="button">Submit Request</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+            }
+
+        </div>
+    </div>*@
+
+

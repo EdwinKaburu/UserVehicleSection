@@ -1,0 +1,73 @@
+﻿@model VehicleReqModel
+
+@{
+    ViewData["Title"] = "VehReqs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+    string alert = ViewBag.RequestSent;
+
+    if (alert != null)
+    {
+        <div class="callout success" data-closable>
+            <h3>@alert</h3>
+            <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+}
+
+<h1>@Model.GetUser.UserName</h1>
+
+<form asp-action="CheckBoxTester" asp-controller="UserPort" asp-route-shopID="@Model.UserID" asp-route-vehID="@Model.VehicleID" method="post">
+    <div class="grid-container fluid">
+        <div class="grid-x grid-margin-x">
+
+            <div class="cell small-6">
+                <label asp-for="VehReqName">
+                    Enter Request Name
+                    <input asp-for="VehReqName" />
+                </label>
+            </div>
+
+            <div class="cell small-6">
+                <label asp-for="VehdateTime">
+                    Enter A Requested Date
+                    <input asp-for="VehdateTime" />
+                </label>
+            </div>
+
+            <div class="cell small-6">
+                <label asp-for="VehMessage">
+                    Send Request Message
+                    <textarea asp-for="VehMessage"></textarea>
+                </label>
+            </div>
+
+            <div class="cell small-6">
+                <button type="submit" class="button">Send Request</button>
+            </div>
+
+            <div class="cell small-6">
+                <fieldset class="fieldset">
+                    <legend>Select Your Service</legend>
+                    @foreach (var items in Model.AssignedTeches)
+                    {
+                        <label>
+                            Assigned Technician : @items.Technician.TechnicianName
+                            Service Name : @items.Service.ServiceName
+                            <input id="checkbox" name="Blanks" value="@items.AssignId" type="checkbox" />
+                        </label>
+                    }
+                </fieldset>
+            </div>
+
+
+        </div>
+    </div>
+
+</form>
+
+

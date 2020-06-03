@@ -33,5 +33,7 @@ namespace UserVehicleSection.ViewModels
         //[Display(Name = "Vin Number")]
         [Required]
         public string VehVinNum { get; set; }
+
+        public string redirectID { get; set; }
     }
 }

@@ -11,7 +11,9 @@
 
         <link rel="stylesheet" asp-href-include="/lib/node_modules/font-awesome/css/*.css" />
 
-        <link href="~/lib/node_modules/foundation-sites/dist/css/foundation.css" rel="stylesheet" />
+        @*<link href="~/lib/node_modules/foundation-sites/dist/css/foundation.css" rel="stylesheet" />*@
+
+        <link href="~/css/foundation.css" rel="stylesheet" />
 
         <script asp-src-include="/lib/node_modules/jquery/dist/**/*.min.js"></script>
         <script asp-src-include="/lib/node_modules/jquery-validation/dist/**/*.validate.js"></script>
@@ -42,6 +44,8 @@
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/motion-ui@1.2.3/dist/motion-ui.min.css" />
 
+        @*<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>*@
 
         <script src="~/js/site.js?v=1" defer></script>
         <link rel="stylesheet" href="~/css/site.css" />
@@ -61,7 +65,7 @@
             <ul class="dropdown menu" data-dropdown-menu>
                 <li class="menu-text"> Auto Destination</li>
                 <li><a asp-controller="Account" asp-action="Index">About</a></li>
-                <li><a asp-controller="Account" asp-action="LogIn">Register/Login</a></li>
+                <li><a asp-controller="Accounts" asp-action="AccountManagement">Register/Login</a></li>
             </ul>
         </div>
         <div class="top-bar-right">

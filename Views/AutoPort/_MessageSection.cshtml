@@ -1,0 +1,26 @@
+﻿@model MessageModel
+
+<form asp-controller="AutoPort" asp-route-vehReqID="@Model.VehReqID" asp-route-shopID="@Model.UserID" asp-action="Message" method="post">
+    
+    <div class="grid-container">
+        <div class="grid-x grid-margin-x">
+
+            <div class="cell small-6">
+                <label>
+                    Message
+                    <textarea asp-for="TextMessage"></textarea>
+                </label>
+            </div>
+
+            <div class="cell small-6">
+                <label>
+                    Date
+                    <input asp-for="DateMessage">
+                </label>
+            </div>
+            <div class="cell">
+                <button type="submit" class="button">Send Message</button>
+            </div>
+        </div>
+    </div>
+</form>
