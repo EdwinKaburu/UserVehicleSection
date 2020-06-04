@@ -27,24 +27,26 @@ namespace UserVehicleSection.Controllers
              * Change to Use Cookies
              * 
              * Get Data based on LoginIn Information
+             * 
+             * int.Parse(Request.Cookies["UserID"])
              */
-            
-            var getuser = _repo.GetUserDbs.Where(s => s.UserId.Equals(int.Parse(userID))).Include(s => s.Image).FirstOrDefault();
 
-            var userVehReq = _repo.GetUserVehs.Where(s => s.UserId.Equals(int.Parse(userID)))
+            var getuser = _repo.GetUserDbs.Where(s => s.UserId.Equals(int.Parse(Request.Cookies["UserID"]))).Include(s => s.Image).FirstOrDefault();
+
+            var userVehReq = _repo.GetUserVehs.Where(s => s.UserId.Equals(int.Parse(Request.Cookies["UserID"])))
                 .Include(sp => sp.VehReqDb).ThenInclude(ap => ap.ServicedHistDb);
 
             var VehReqSection = _repo.GetVehReqs.Include(sp => sp.User).Include(p => p.MessageDb).Include(o => o.ServicedHistDb)
-               .Include(sp => sp.Vehicle).ThenInclude(sp => sp.User).Where(a => a.Vehicle.UserId.Equals(int.Parse(userID)));
+               .Include(sp => sp.Vehicle).ThenInclude(sp => sp.User).Where(a => a.Vehicle.UserId.Equals(int.Parse(Request.Cookies["UserID"])));
 
 
             var vehServicedHist = _repo.GetServicedHists.Include(sp => sp.VehReq).ThenInclude(uv => uv.Vehicle)
-                .Where(ap => ap.VehReq.Vehicle.UserId.Equals(int.Parse(userID)));
+                .Where(ap => ap.VehReq.Vehicle.UserId.Equals(int.Parse(Request.Cookies["UserID"])));
 
             var message = _repo.GetMessages.Include(ap => ap.VehReq)
                 .Include(ap => ap.VehReq.ServicedHistDb).Include(ap => ap.VehReq.User).Include(sp => sp.VehReq.ServiceReqDb).ThenInclude(sa => sa.Assign.Service)
                 .Include(ap => ap.VehReq.Vehicle).ThenInclude(sp => sp.User)
-                .Where(a => a.VehReq.Vehicle.User.UserId.Equals(int.Parse(userID)));
+                .Where(a => a.VehReq.Vehicle.User.UserId.Equals(int.Parse(Request.Cookies["UserID"])));
 
 
             var user = new UserListVIew
@@ -77,7 +79,8 @@ namespace UserVehicleSection.Controllers
         public IActionResult VehReqs([FromQuery(Name = "shopID")] string shopsID, [FromQuery(Name = "vehID")] string vehicleID)
         {
             var checkList = new List<CheckBoxItem>();
-            var Teches = _repo.GetAssignedTechDbs.Include(se => se.Service).Where(id => id.Service.UserId.Equals(int.Parse(shopsID))).Include(st => st.Technician).Where(ids => ids.Technician.UserId.Equals(int.Parse(shopsID)));
+            var Teches = _repo.GetAssignedTechDbs.Include(se => se.Service).Where(id => id.Service.UserId.Equals(int.Parse(shopsID)))
+                .Include(st => st.Technician).Where(ids => ids.Technician.UserId.Equals(int.Parse(shopsID)));
             foreach (var services in Teches)
             {
                 checkList.Add(new CheckBoxItem()
@@ -88,9 +91,12 @@ namespace UserVehicleSection.Controllers
                 });
             }
 
+            var shopServices = _repo.GetShopServices.Include(s => s.AssignedTechDb).ThenInclude(sp => sp.Technician).Where(ids => ids.UserId.Equals(int.Parse(shopsID)));
+
             var user = new VehicleReqModel
             {
                 GetUser = _repo.GetUserDbs.Where(s => s.UserId.Equals(int.Parse(shopsID))).FirstOrDefault(),
+                ShopServices = shopServices,
                 CheckBoxItems = checkList,
                 AssignedTeches = Teches,
                 VehicleID = int.Parse(vehicleID),
@@ -174,7 +180,8 @@ namespace UserVehicleSection.Controllers
             return View(new ListView
             {
                 Results = _repo.GetVehichleMakesAsync().Result,
-                redirectID = UserID
+                redirectID = Request.Cookies["UserID"]
+                //redirectID = UserID
             });
         }
 

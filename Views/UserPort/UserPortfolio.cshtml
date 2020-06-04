@@ -95,7 +95,7 @@
                                     <div class="grid-x">
 
                                         <div class="cell auto">
-                                            <button type="submit" class="button">Sign Out</button>
+                                            <a class="button" asp-action="AccountManagement" asp-controller="Accounts">Sign Out</a>
                                             <button type="submit" class="button">Edit Profile</button>
                                         </div>
 
@@ -176,18 +176,44 @@
 
                         <div class="tabs-panel" id="panel2">
 
-                            @foreach (var item in Model.ServicedHistDbs)
-                            {
-                            <p> Serviced : @item.Serviced</p>
 
-                            <p> VehicleReqName : @item.VehReq.VehReqName</p>
+                            <div class="grid-container fluid">
 
-                            <p> VehicleReq ID : @item.VehReq.VehReqId</p>
+                                <div class="cell">
+                                    <table class="hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Serviced</th>
+                                                <th>Vehicle Make</th>
+                                                <th>Vehicle Model</th>
+                                                <th>Vehicle Year</th>
+                                                <th>Service Req Name</th>
+                                                <th>Service Req Date</th>
+                                                <th>Service Req Message</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.ServicedHistDbs)
+                                            {
+                                                <tr>
+                                                    <td>@item.Serviced</td>
+                                                    <td>@item.VehReq.Vehicle.VehicleMake</td>
+                                                    <td>@item.VehReq.Vehicle.VehicleModel</td>
+                                                    <td>@item.VehReq.Vehicle.VehicleYear</td>
+                                                    <td>@item.VehReq.VehReqName</td>
+                                                    <td>@item.VehReq.VehReqDate</td>
+                                                    <td>@item.VehReq.VehReqMessage</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
 
-                            <p> Vehicle: @item.VehReq.Vehicle.VehicleMake</p>
+                            </div>
 
-                            <br /><br />
-                            }
+
+
+                           
 
                         </div>
 
