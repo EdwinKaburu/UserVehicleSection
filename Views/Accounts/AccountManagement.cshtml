@@ -38,14 +38,14 @@
     <div class="tabs-content" data-tabs-content="example-tabs">
         <div class="tabs-panel is-active" id="panel1">
 
-            @await Html.PartialAsync("_LogInSection.cshtml",signInModel);
+            @await Html.PartialAsync("_LogInSection.cshtml",signInModel)
 
             @*<partial name="_LogInSection" />*@
         </div>
 
         <div class="tabs-panel" id="panel2">
 
-            @await Html.PartialAsync("_RegisterSection.cshtml",regiserModel);
+            @await Html.PartialAsync("_RegisterSection.cshtml",regiserModel)
 
             @*<partial name="_RegisterSection" />*@
         </div>

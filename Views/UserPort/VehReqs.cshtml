@@ -21,53 +21,285 @@
 
 <h1>@Model.GetUser.UserName</h1>
 
-<form asp-action="CheckBoxTester" asp-controller="UserPort" asp-route-shopID="@Model.UserID" asp-route-vehID="@Model.VehicleID" method="post">
-    <div class="grid-container fluid">
-        <div class="grid-x grid-margin-x">
+<div class="grid-container fluid">
+    <div class="grid-x">
 
-            <div class="cell small-6">
-                <label asp-for="VehReqName">
-                    Enter Request Name
-                    <input asp-for="VehReqName" />
-                </label>
+
+        <form asp-action="CheckBoxTester" asp-controller="UserPort" asp-route-shopID="@Model.UserID" asp-route-vehID="@Model.VehicleID" method="post">
+
+
+
+            <div class="cell">
+
+
+                <div class="grid-container fluid">
+
+                    <div class="grid-x grid-padding-x">
+
+
+                        @foreach (var services in Model.ShopServices)
+                        {
+                            @*<form asp-action="CheckBoxTester" asp-controller="UserPort" asp-route-shopID="@Model.UserID" asp-route-vehID="@Model.VehicleID" method="post">*@
+
+
+
+                            @*//small-4*@
+                            <div class="cell">
+
+                                <div class="card">
+
+                                    <div class="card-divider">
+
+                                        <!-- Use Lable Next Time
+                                        -->
+                                        <label style="text-align:left !important;">
+                                            @services.ServiceName &nbsp; &nbsp; &nbsp; &nbsp;
+
+                                            @services.ServiceCost
+                                        </label>
+                                        <label>@services.ServiceDescription  &nbsp; &nbsp; &nbsp; &nbsp;</label>
+                                        @*<div class="grid-container fluid">
+                                                <div class="grid-x">
+
+
+                                                    <div class="cell small-4">
+
+                                                        <label>@services.ServiceName</label>
+                                                    </div>
+
+                                                    <div class="cell small-4">
+
+                                                        <label>@services.ServiceDescription</label>
+                                                    </div>
+
+                                                    <div class="cell small-4">
+
+                                                        <label>@services.ServiceCost</label>
+                                                    </div>
+                                                </div>
+
+                                            </div>*@
+
+                                        @*<h4>@services.ServiceName</h4>*@
+                                    </div>
+
+                                    @*<img src="https://toppng.com/uploads/preview/tools-icons-clip-transparent-fix-icon-11553448942vb0gu6dlx6.png" />*@
+
+                                    <div class="card-section">
+
+                                        <div class="grid-container fluid">
+
+                                            <div class="grid-x">
+
+                                                @foreach (var technicians in services.AssignedTechDb)
+                                                {
+
+                                                    <div class="cell">
+
+                                                        <div class="grid-container fluid">
+
+                                                            <div class="grid-x">
+
+
+                                                                <div class="cell small-6">
+                                                                    <label>Technician Name</label>
+                                                                </div>
+                                                                <div class="cell small-6">
+                                                                    <label>@technicians.Technician.TechnicianName</label>
+                                                                </div>
+
+
+                                                                <div class="cell small-6">
+                                                                    <label>Technician Description</label>
+                                                                </div>
+                                                                <div class="cell small-6">
+                                                                    <label>@technicians.Technician.TechnicianDescription</label>
+                                                                </div>
+
+
+                                                                <div class="cell small-6">
+                                                                    <label>Select Technician</label>
+                                                                </div>
+                                                                <div class="cell small-6">
+                                                                    <label>
+                                                                        <input id="checkbox" name="Blanks" value="@technicians.AssignId" type="checkbox" />
+                                                                    </label>
+                                                                </div>
+
+
+                                                                @*<div class="cell small-4">
+
+                                                                        <label>Technician Name</label>
+                                                                        <label>@technicians.Technician.TechnicianName</label>
+
+                                                                    </div>
+
+                                                                    <div class="cell small-4">
+                                                                        <label>Technician Description</label>
+                                                                        <label>@technicians.Technician.TechnicianDescription</label>
+                                                                    </div>
+
+                                                                    <div class="cell small-4">
+                                                                        <label>Select</label>
+                                                                        <label>
+                                                                            <input id="checkbox" name="Blanks" value="@technicians.AssignId" type="checkbox" />
+                                                                        </label>
+
+                                                                    </div>*@
+                                                            </div>
+
+                                                        </div>
+
+
+                                                        <hr />
+                                                    </div>
+
+                                                    @*<div class="cell small-6">
+                                                            <label>Technician Name</label>
+                                                            <label>@technicians.Technician.TechnicianName</label> <hr />
+
+
+                                                        </div>
+
+
+                                                        <div class="cell small-6">
+
+                                                            <label>Select</label>
+                                                            <label>
+                                                                <input id="checkbox" name="Blanks" value="@technicians.AssignId" type="checkbox" />
+                                                            </label>
+                                                            <hr />
+                                                        </div>
+                                                        <div class="cell small-6">
+
+                                                            <label>Technician Description</label>
+                                                            <label>@technicians.Technician.TechnicianDescription</label><hr />
+
+                                                        </div>*@
+                                                }
+
+
+                                                <div class="cell">
+
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                            @*</form>*@
+                        }
+
+                    </div>
+
+                </div>
+
             </div>
 
-            <div class="cell small-6">
-                <label asp-for="VehdateTime">
-                    Enter A Requested Date
-                    <input asp-for="VehdateTime" />
-                </label>
+            <div class="cell">
+                <!-- Form Section -->
+
+
+                <h3 style="text-align:center">Enter Vehicle Request Details</h3>
+                <div class="grid-container fluid">
+                    <div class="grid-x grid-margin-x">
+
+                        <div class="cell small-6">
+                            <label asp-for="VehReqName">
+                                Enter Request Name
+                                <input asp-for="VehReqName" />
+                            </label>
+                        </div>
+
+                        <div class="cell small-6">
+                            <label asp-for="VehdateTime">
+                                Enter A Requested Date
+                                <input asp-for="VehdateTime" />
+                            </label>
+                        </div>
+
+                        <div class="cell small-6">
+                            <label asp-for="VehMessage">
+                                Send Request Message
+                                <textarea asp-for="VehMessage"></textarea>
+                            </label>
+                        </div>
+
+                        <div class="cell small-6">
+                            <button type="submit" class="button">Send Request</button>
+                            <a class="button" asp-action="UserPortfolio" asp-controller="UserPort">Return to Homepage</a>
+                        </div>
+
+                    </div>
+                </div>
+
+
             </div>
 
-            <div class="cell small-6">
-                <label asp-for="VehMessage">
-                    Send Request Message
-                    <textarea asp-for="VehMessage"></textarea>
-                </label>
-            </div>
-
-            <div class="cell small-6">
-                <button type="submit" class="button">Send Request</button>
-            </div>
-
-            <div class="cell small-6">
-                <fieldset class="fieldset">
-                    <legend>Select Your Service</legend>
-                    @foreach (var items in Model.AssignedTeches)
-                    {
-                        <label>
-                            Assigned Technician : @items.Technician.TechnicianName
-                            Service Name : @items.Service.ServiceName
-                            <input id="checkbox" name="Blanks" value="@items.AssignId" type="checkbox" />
-                        </label>
-                    }
-                </fieldset>
-            </div>
+        </form>
 
 
-        </div>
     </div>
+</div>
 
-</form>
+
+
+
+
+@*<form asp-action="CheckBoxTester" asp-controller="UserPort" asp-route-shopID="@Model.UserID" asp-route-vehID="@Model.VehicleID" method="post">
+        <div class="grid-container fluid">
+            <div class="grid-x grid-margin-x">
+
+                <div class="cell small-6">
+                    <label asp-for="VehReqName">
+                        Enter Request Name
+                        <input asp-for="VehReqName" />
+                    </label>
+                </div>
+
+                <div class="cell small-6">
+                    <label asp-for="VehdateTime">
+                        Enter A Requested Date
+                        <input asp-for="VehdateTime" />
+                    </label>
+                </div>
+
+                <div class="cell small-6">
+                    <label asp-for="VehMessage">
+                        Send Request Message
+                        <textarea asp-for="VehMessage"></textarea>
+                    </label>
+                </div>
+
+                <div class="cell small-6">
+                    <button type="submit" class="button">Send Request</button>
+                    <a class="button" asp-action="UserPortfolio" asp-controller="UserPort">Return to Homepage</a>
+                </div>
+
+                <div class="cell small-6">
+                    <fieldset class="fieldset">
+                        <legend>Select Your Service</legend>
+                        @foreach (var items in Model.AssignedTeches)
+                        {
+                            <label>
+                                Assigned Technician : @items.Technician.TechnicianName
+                                Service Name : @items.Service.ServiceName
+                                <input id="checkbox" name="Blanks" value="@items.AssignId" type="checkbox" />
+                            </label>
+                        }
+                    </fieldset>
+                </div>
+
+            </div>
+        </div>
+
+    </form>*@
 
 

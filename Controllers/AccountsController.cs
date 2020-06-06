@@ -166,6 +166,7 @@ namespace UserVehicleSection.Controllers
 
                 if (user != null)
                 {
+                    //Sign Out Existing User
                     await signInManager.SignOutAsync();
 
                     Microsoft.AspNetCore.Identity.SignInResult result = await signInManager.PasswordSignInAsync(user, details.Password, false, false);

@@ -26,7 +26,7 @@
                     <div class="grid-container fluid">
                         <div class="grid-x">
                             <div class="cell shrink">
-                                <div class="card" >
+                                <div class="card">
 
                                     <img src="https://get.foundation/sites/docs/assets/img/orbit/02.jpg">
 
@@ -97,7 +97,7 @@
                                     <div class="grid-x">
 
                                         <div class="cell auto">
-                                            <button type="submit" class="button">Sign Out</button>
+                                            <a class="button" asp-controller="Accounts" asp-action="AccountManagement">Sign Out</a>
                                             <button type="submit" class="button">Edit Profile</button>
                                         </div>
 
@@ -128,7 +128,7 @@
 
                                     @foreach (var item in Model.ShopTeches)
                                     {
-                                       
+
                                         <tr>
                                             <td>@Model.User.UserName</td>
                                             <td>@item.TechnicianName</td>
@@ -153,6 +153,7 @@
                                     }
                                 </tbody>
                             </table>
+
                         </div>
                         <div class="cell auto">
                             <a class="button" asp-controller="AutoPort" asp-action="ShopTech"> Add New Technician </a>
@@ -197,108 +198,177 @@
 
                 <div class="tabs-panel" id="panel4v">
                     <div class="grid-container fluid">
-                        <div class="cell">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Shop ID</th>
-                                        <th>Veh Req ID</th>
-                                        <th>Request Name</th>
-                                        <th>Request Date</th>
-                                        <th>Request Message</th>
-                                        <th>Vehicle Owner</th>
-                                        <th>Vehicle Make</th>
-                                        <th>Vehicle Model</th>
-                                        <th>Vehicle Year</th>
-                                        <th>Vehicle Mileage</th>
-                                        <th>Service Request</th>
-                                        <th>Service Cost</th>
-                                        <th>Technician Name</th>
-                                        <th>Store Name</th>
-                                        <th>Accept</th>
-                                        <th>Compromise</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @{
-                                        int count = 0;
-                                        foreach (var ite in Model.ShopReqVehDbs)
-                                        {
-                                            string modula = $"sendMessage{count}";
+                        
 
-                                            string reqSer = String.Empty;
+                        <div class="cell">
+
+                            <div class="grid-container fluid">
+
+                                <div class="grid-x grid-padding-x">
+
+                                    @{
+                                        int count1 = 0;
+
+                                        foreach (var request in Model.ShopReqVehDbs)
+                                        {
+
+                                            string modula = $"sendMessage{count1}";
+
                                             decimal? totalCost = 0.0m;
-                                            string technicians = String.Empty;
 
                                             MessageModel message = new MessageModel
                                             {
-                                                UserID = ite.User.UserId,
-                                                VehReqID = ite.VehReqId
+                                                UserID = request.User.UserId,
+                                                VehReqID = request.VehReqId
                                             };
 
-                                            foreach (var service in ite.ServiceReqDb)
-                                            {
-                                                reqSer += service.Assign.Service.ServiceName + ",";
-                                                technicians += service.Assign.Technician.TechnicianName + ",";
-                                                totalCost += service.Assign.Service.ServiceCost;
-                                            }
+                                            <div class="cell small-4">
 
-                                            <tr>
-                                                <td>@ite.User.UserId</td>
-                                                <td>@ite.VehReqId</td>
+                                                <div class="card">
 
-                                                <td>@ite.VehReqName</td>
-                                                <td>@ite.VehReqDate</td>
-                                                <td>@ite.VehReqMessage</td>
-                                                <td>@ite.Vehicle.User.UserName</td>
-                                                <td>@ite.Vehicle.VehicleMake</td>
-                                                <td>@ite.Vehicle.VehicleModel</td>
-                                                <td>@ite.Vehicle.VehicleYear</td>
-                                                <td>@ite.Vehicle.VehicleMileage</td>
-                                                <td>@reqSer</td>
-                                                <td>@totalCost</td>
-                                                <td>@technicians</td>
-                                                <td>@ite.User.UserName</td>
-                                                <td>
-                                                    <div class="primary button-group">
-                                                        <a onclick="location.href='@(Url.Action("Serviced","Accounts", new { vehID = ite.VehReqId, shopID = ite.User.UserId,serCost = totalCost, acceptance = true , shopPortfolio = true }))'" class="button">Accept</a>
-                                                        @*<a class="button" data-toggle="@modula">Compromise</a>*@
+                                                    <div class="card-divider">
+
+                                                        <h4>@request.VehReqName</h4>
+
                                                     </div>
 
-                                                    @*<div class="reveal" id="@modula" data-reveal data-overlay="false">
+                                                    <div class="card-section">
 
-                                                        @await Html.PartialAsync("_MessageSection.cshtml", message);
+                                                        <div class="grid-container fluid">
 
-                                                        <p>Send to :  @ite.Vehicle.User.UserName</p>
-                                                        <button class="close-button" data-close aria-label="Close reveal" type="button">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>*@
 
-                                                </td>
-                                                <td>
-                                                    <a class="button" data-toggle="@modula">Compromise</a>
+                                                            <div class="grid-x">
 
-                                                    <div class="reveal" id="@modula" data-reveal data-overlay="false">
+                                                                <div class="cell small-6">
+                                                                    <label>Vehicle Owner</label>
+                                                                    <label>@request.Vehicle.User.UserName</label>
 
-                                                        @await Html.PartialAsync("_MessageSection.cshtml", message);
+                                                                    <br />
+                                                                </div>
 
-                                                        <p>Send to :  @ite.Vehicle.User.UserName</p>
-                                                        <button class="close-button" data-close aria-label="Close reveal" type="button">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
+                                                                <div class="cell small-6">
+                                                                    <label>Vehicle Make</label>
+                                                                    <label>@request.Vehicle.VehicleMake</label>
+
+                                                                    <br />
+                                                                </div>
+
+                                                                <div class="cell small-6">
+                                                                    <label>Vehicle Model</label>
+                                                                    <label>@request.Vehicle.VehicleModel</label>
+
+                                                                    <br />
+                                                                </div>
+
+
+                                                                <div class="cell small-6">
+                                                                    <label>Vehicle Year</label>
+                                                                    <label>@request.Vehicle.VehicleYear</label>
+
+                                                                    <br />
+                                                                </div>
+
+                                                                <div class="cell small-6">
+                                                                    <label>Vehicle Mileage</label>
+                                                                    <label>@request.Vehicle.VehicleMileage</label>
+
+                                                                    <br />
+                                                                </div>
+
+                                                                <div class="cell small-6">
+                                                                    <label>Date</label>
+                                                                    <label>@request.VehReqDate</label>
+
+                                                                    <br />
+                                                                </div>
+
+                                                                <div class="cell small-6">
+                                                                    <label>Message</label>
+                                                                    <label>@request.VehReqMessage</label>
+
+                                                                    <br />
+                                                                </div>
+
+                                                                <div class="cell">
+                                                                    <hr />
+                                                                    <h5>Technicians Requested And Services Assigned</h5>
+                                                                    <br />
+                                                                </div>
+
+                                                                <div class="cell small-6">
+                                                                    <h6>Technicians</h6>
+                                                                </div>
+                                                                <div class="cell small-6">
+                                                                    <h6>Services</h6>
+                                                                </div>
+
+                                                                @foreach (var techServ in request.ServiceReqDb)
+                                                                {
+                                                                    totalCost += techServ.Assign.Service.ServiceCost;
+                                                                    <div class="cell small-6">
+                                                                        @*<label>Technician Name</label>*@
+                                                                        <label>@techServ.Assign.Technician.TechnicianName</label>
+                                                                    </div>
+
+                                                                    <div class="cell small-6">
+                                                                        @*<label>Services Name</label>*@
+                                                                        <label>@techServ.Assign.Service.ServiceName</label>
+                                                                    </div>
+                                                                }
+
+                                                                <div class="cell">
+                                                                    <hr />
+
+                                                                </div>
+                                                                <div class="cell small-6">
+                                                                    <label>Total Cost</label>
+                                                                    <label>$ @totalCost</label>
+                                                                </div>
+
+                                                                <div class="cell">
+                                                                    <br />
+                                                                </div>
+
+                                                                <div class="cell small-6">
+                                                                    <a onclick="location.href='@(Url.Action("Serviced","Accounts", new { vehID = request.VehReqId, shopID = request.User.UserId,serCost = totalCost, acceptance = true , shopPortfolio = true }))'" class="button">Accept</a>
+                                                                </div>
+
+                                                                <div class="cell small-6">
+                                                                    <a class="button" data-toggle="@modula">Compromise</a>
+
+                                                                    <div class="reveal" id="@modula" data-reveal data-overlay="false">
+
+                                                                        @await Html.PartialAsync("_MessageSection.cshtml", message);
+
+                                                                        <p>Send to :  @request.Vehicle.User.UserName</p>
+                                                                        <button class="close-button" data-close aria-label="Close reveal" type="button">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </div>
+
+                                                        </div>
+
                                                     </div>
 
-                                                </td>
+                                                </div>
 
-                                                @*<td>@modula</td>*@
-                                            </tr>
-                                            count++;
+                                            </div>
                                         }
                                     }
-                                </tbody>
-                            </table>
+
+
+
+                                </div>
+
+                            </div>
+
                         </div>
+
+
                     </div>
 
 
@@ -309,8 +379,15 @@
     </div>
 </div>
 
+@{ 
+    @*foreach(var item in Model.ShopReqVehDbs)
+    {
+        foreach(var item1 in item.ServiceReqDb)
+        {
+            <p>@item1.Assign.Technician.TechnicianName</p>
+            <p>@item1.Assign.Service.ServiceName</p>
+        }
 
-
-
-
-
+        <br />
+    }*@
+}
