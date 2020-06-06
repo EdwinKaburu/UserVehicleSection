@@ -167,6 +167,7 @@ namespace UserVehicleSection.Controllers
                 GetUser = _repo.GetUserDbs.Where(s => s.UserId.Equals(int.Parse(shopsID))).FirstOrDefault(),
                 AssignedTeches = _repo.GetAssignedTechDbs.Include(se => se.Service).Where(id => id.Service.UserId.Equals(int.Parse(shopsID))).Include(st => st.Technician).Where(ids => ids.Technician.UserId.Equals(int.Parse(shopsID))),
                 VehicleID = int.Parse(vehicleID),
+                ShopServices = _repo.GetShopServices.Include(sp => sp.AssignedTechDb).ThenInclude(ap => ap.Technician).Where(ids => ids.UserId.Equals(int.Parse(shopsID))),
                 UserID = int.Parse(shopsID)
             };
 

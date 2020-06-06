@@ -26,7 +26,7 @@
                             <div class="cell shrink">
                                 <div class="card">
 
-                                    <img  src="https://get.foundation/sites/docs/assets/img/orbit/02.jpg">
+                                    <img src="https://get.foundation/sites/docs/assets/img/orbit/02.jpg">
 
                                     <div class="card-section">
 
@@ -85,7 +85,7 @@
 
                                     </div>
                                 </div>
-                                
+
                             </div>
                             <div class="cell shrink" style="margin-left:10px">
 
@@ -213,7 +213,7 @@
 
 
 
-                           
+
 
                         </div>
 
@@ -226,65 +226,144 @@
 
                     <div class="grid-container fluid">
                         <div class="cell">
+                            <div class="grid-container fluid">
 
-                            <table class="hover">
-                                <thead>
-                                    <tr>
-                                        <th>Shop</th>
-                                        <th>Message</th>
-                                        <th>Message Date</th>
-                                        <th>Request Name</th>
-                                        <th>Request Date</th>
-                                        <th>Vehicle Name</th>
-                                        <th>Services</th>
-                                        <th>Service Cost</th>
-                                        <th>Vehicle Owner</th>
+                                <div class="grid-x">
 
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
                                     @{
                                         foreach (var alert in Model.MessageDbs)
                                         {
-                                            decimal? totalCost = 0.0m;
-                                            string reqSer = String.Empty;
+                                            decimal? totalCost1 = 0.0m;
 
-                                            foreach (var service in alert.VehReq.ServiceReqDb)
-                                            {
-                                                totalCost += service.Assign.Service.ServiceCost;
-                                                reqSer += $"{service.Assign.Service.ServiceName} : {service.Assign.Service.ServiceCost}\n";
-                                            }
+                                            //foreach (var service in alert.VehReq.ServiceReqDb)
+                                            //{
+                                            //    totalCost1 += service.Assign.Service.ServiceCost;
+                                            //}
 
-                                            <tr>
-                                                <td>@alert.User.UserName</td>
-                                                <td>@alert.Message</td>
-                                                <td>@alert.MessageDate.Value</td>
-                                                <td>@alert.VehReq.VehReqName</td>
-                                                <td>@alert.VehReq.VehReqDate</td>
-                                                <td>@alert.VehReq.Vehicle.VehicleMake</td>
-                                                <td>@reqSer</td>
-                                                <td>@totalCost</td>
-                                                <td>@alert.VehReq.Vehicle.User.UserName</td>
+                                            <div class="cell small-4">
 
-                                                <td>
-                                                    <div class="primary button-group">
-                                                        <a onclick="location.href='@(Url.Action("Serviced","Accounts", new { vehID = alert.VehReqId, shopID = alert.User.UserId,serCost = totalCost, acceptance = true , shopPortfolio = false }))'" class="button">
-                                                            Accept
-                                                        </a>
-                                                        <a onclick="location.href='@(Url.Action("Serviced","Accounts", new { vehID = alert.VehReqId, shopID = alert.User.UserId,serCost = totalCost, acceptance = false , shopPortfolio = false }))'" class="button">
-                                                            Decline
-                                                        </a>
+                                                <div class="card">
+
+                                                    <div class="card-divider">
+                                                        <h4>@alert.Message</h4>
                                                     </div>
-                                                </td>
-                                            </tr>
+
+                                                    <div class="card-section">
+
+                                                        <div class="grid-container fluid">
+
+                                                            <div class="grid-x">
+
+                                                                <div class="cell small-6">
+                                                                    <label>Auto Shop</label>
+                                                                    <label>@alert.User.UserName</label>
+                                                                    <br />
+                                                                </div>
+
+                                                                <div class="cell small-6">
+                                                                    <label>Request Name</label>
+                                                                    <label>@alert.VehReq.VehReqName</label>
+                                                                    
+                                                                    <br />
+                                                                </div>
+
+                                                                <div class="cell small-6">
+                                                                    <label>Request Date</label>
+                                                                    <label>@alert.VehReq.VehReqDate</label> 
+                                                                    
+                                                                    <br />
+                                                                </div>
+
+                                                                <div class="cell small-6">
+                                                                    <label>Vehicle Make</label>
+                                                                    <label>@alert.VehReq.Vehicle.VehicleMake</label>
+
+                                                                    <br />
+                                                                </div>
+
+
+                                                                <div class="cell small-6">
+                                                                    <label>Vehicle Model </label>
+                                                                    <label>@alert.VehReq.Vehicle.VehicleModel</label>
+
+                                                                    <br />
+                                                                </div>
+
+
+                                                                <div class="cell small-6">
+                                                                    <label>Vehicle Year</label>
+                                                                    <label>@alert.VehReq.Vehicle.VehicleYear</label>
+
+                                                                    <br />
+                                                                </div>
+
+                                                                <div class="cell small-6">
+                                                                    <label>Vehicle Owner</label>
+                                                                    <label>@alert.VehReq.Vehicle.User.UserName</label>
+
+                                                                </div>
+
+                                                                <div class="cell">
+                                                                    <hr />
+                                                                    <h5>Services Requested </h5>
+                                                                    <br />
+                                                                </div>
+
+                                                                <div class="cell small-6">
+                                                                    <label>Services </label>
+                                                                </div>
+
+                                                                <div class="cell small-6">
+                                                                    <label>Service Cost</label>
+                                                                </div>
+
+                                                                @foreach (var service in alert.VehReq.ServiceReqDb)
+                                                                {
+                                                                    totalCost1 += service.Assign.Service.ServiceCost;
+
+                                                                    <div class="cell small-6">
+                                                                        <label>@service.Assign.Service.ServiceName</label>
+                                                                    </div>
+                                                                    <div class="cell small-6">
+                                                                        <label>$ @service.Assign.Service.ServiceCost</label>
+                                                                    </div>
+                                                                }
+
+                                                                <div class="cell">
+                                                                    <br />
+                                                                    <label>Total Cost</label>
+                                                                    <label>$ @totalCost1</label>
+                                                                </div>
+
+                                                                <div class="cell small-6">
+                                                                    <a onclick="location.href='@(Url.Action("Serviced","Accounts", new { vehID = alert.VehReqId, shopID = alert.User.UserId,serCost = totalCost1, acceptance = true , shopPortfolio = false }))'" class="button">
+                                                                        Accept
+                                                                    </a>
+                                                                </div>
+
+                                                                <div class="cell small-6">
+                                                                    <a onclick="location.href='@(Url.Action("Serviced","Accounts", new { vehID = alert.VehReqId, shopID = alert.User.UserId,serCost = totalCost1, acceptance = false , shopPortfolio = false }))'" class="button">
+                                                                        Decline
+                                                                    </a>
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
                                         }
                                     }
 
-                                </tbody>
+                                </div>
 
-                            </table>
+                            </div>
+
+
 
                         </div>
                     </div>

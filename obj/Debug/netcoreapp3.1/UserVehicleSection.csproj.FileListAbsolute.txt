@@ -463,4 +463,3 @@ C:\Users\edwinPC\Documents\ProjectDraft\Dark Theme\DarkThemProject\UserVehicleSe
 C:\Users\edwinPC\Documents\ProjectDraft\Dark Theme\DarkThemProject\UserVehicleSection\obj\Debug\netcoreapp3.1\Razor\Views\AutoPort\ShopTech.cshtml.g.cs
 C:\Users\edwinPC\Documents\ProjectDraft\Dark Theme\DarkThemProject\UserVehicleSection\obj\Debug\netcoreapp3.1\Razor\Views\AutoPort\AssignShopTech.cshtml.g.cs
 C:\Users\edwinPC\Documents\ProjectDraft\Dark Theme\DarkThemProject\UserVehicleSection\obj\Debug\netcoreapp3.1\Razor\Views\AutoPort\ShopServices.cshtml.g.cs
-C:\Users\edwinPC\Documents\ProjectDraft\Dark Theme\DarkThemProject\UserVehicleSection\obj\Debug\netcoreapp3.1\UserVehicleSection.csprojAssemblyReference.cache

@@ -119,3 +119,15 @@ option {
     color: #f5f5f5;
     background-color: #272727;
 }
+
+/*element.style {
+    top: 0px !important;
+}
+.reveal {
+    top: 0px !important;
+}*/
+
+html
+{
+    top:0px !important;
+}

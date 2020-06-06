@@ -24,17 +24,22 @@
 <div class="grid-container fluid">
     <div class="grid-x">
 
-        <div class="cell">
+
+        <form asp-action="CheckBoxTester" asp-controller="UserPort" asp-route-shopID="@Model.UserID" asp-route-vehID="@Model.VehicleID" method="post">
 
 
-            <div class="grid-container fluid">
 
-                <div class="grid-x grid-padding-x">
+            <div class="cell">
 
 
-                    @foreach (var services in Model.ShopServices)
-                    {
-                        <form asp-action="CheckBoxTester" asp-controller="UserPort" asp-route-shopID="@Model.UserID" asp-route-vehID="@Model.VehicleID" method="post">
+                <div class="grid-container fluid">
+
+                    <div class="grid-x grid-padding-x">
+
+
+                        @foreach (var services in Model.ShopServices)
+                        {
+                            @*<form asp-action="CheckBoxTester" asp-controller="UserPort" asp-route-shopID="@Model.UserID" asp-route-vehID="@Model.VehicleID" method="post">*@
 
 
 
@@ -46,32 +51,34 @@
                                     <div class="card-divider">
 
                                         <!-- Use Lable Next Time
-                                            -->
-                                        <h4 style="text-align:left !important;">@services.ServiceName &nbsp; &nbsp; &nbsp; &nbsp;
-                                        
-                                        @services.ServiceCost</h4>
-                                        <h4>@services.ServiceDescription  &nbsp; &nbsp; &nbsp; &nbsp;</h4>
+                                        -->
+                                        <label style="text-align:left !important;">
+                                            @services.ServiceName &nbsp; &nbsp; &nbsp; &nbsp;
+
+                                            @services.ServiceCost
+                                        </label>
+                                        <label>@services.ServiceDescription  &nbsp; &nbsp; &nbsp; &nbsp;</label>
                                         @*<div class="grid-container fluid">
-                                            <div class="grid-x">
+                                                <div class="grid-x">
 
 
-                                                <div class="cell small-4">
+                                                    <div class="cell small-4">
 
-                                                    <label>@services.ServiceName</label>
+                                                        <label>@services.ServiceName</label>
+                                                    </div>
+
+                                                    <div class="cell small-4">
+
+                                                        <label>@services.ServiceDescription</label>
+                                                    </div>
+
+                                                    <div class="cell small-4">
+
+                                                        <label>@services.ServiceCost</label>
+                                                    </div>
                                                 </div>
 
-                                                <div class="cell small-4">
-
-                                                    <label>@services.ServiceDescription</label>
-                                                </div>
-
-                                                <div class="cell small-4">
-
-                                                    <label>@services.ServiceCost</label>
-                                                </div>
-                                            </div>
-
-                                        </div>*@
+                                            </div>*@
 
                                         @*<h4>@services.ServiceName</h4>*@
                                     </div>
@@ -174,38 +181,6 @@
 
                                                 <div class="cell">
 
-                                                    <h3 style="text-align:center">Enter Vehicle Request Details</h3>
-                                                    <div class="grid-container fluid">
-                                                        <div class="grid-x grid-margin-x">
-
-                                                            <div class="cell small-6">
-                                                                <label asp-for="VehReqName">
-                                                                    Enter Request Name
-                                                                    <input asp-for="VehReqName" />
-                                                                </label>
-                                                            </div>
-
-                                                            <div class="cell small-6">
-                                                                <label asp-for="VehdateTime">
-                                                                    Enter A Requested Date
-                                                                    <input asp-for="VehdateTime" />
-                                                                </label>
-                                                            </div>
-
-                                                            <div class="cell small-6">
-                                                                <label asp-for="VehMessage">
-                                                                    Send Request Message
-                                                                    <textarea asp-for="VehMessage"></textarea>
-                                                                </label>
-                                                            </div>
-
-                                                            <div class="cell small-6">
-                                                                <button type="submit" class="button">Send Request</button>
-                                                                <a class="button" asp-action="UserPortfolio" asp-controller="UserPort">Return to Homepage</a>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
 
                                                 </div>
 
@@ -219,18 +194,57 @@
 
                             </div>
 
-                        </form>
-                    }
+                            @*</form>*@
+                        }
+
+                    </div>
 
                 </div>
 
             </div>
 
-        </div>
+            <div class="cell">
+                <!-- Form Section -->
 
-        <div class="cell">
-            <!-- Form Section -->
-        </div>
+
+                <h3 style="text-align:center">Enter Vehicle Request Details</h3>
+                <div class="grid-container fluid">
+                    <div class="grid-x grid-margin-x">
+
+                        <div class="cell small-6">
+                            <label asp-for="VehReqName">
+                                Enter Request Name
+                                <input asp-for="VehReqName" />
+                            </label>
+                        </div>
+
+                        <div class="cell small-6">
+                            <label asp-for="VehdateTime">
+                                Enter A Requested Date
+                                <input asp-for="VehdateTime" />
+                            </label>
+                        </div>
+
+                        <div class="cell small-6">
+                            <label asp-for="VehMessage">
+                                Send Request Message
+                                <textarea asp-for="VehMessage"></textarea>
+                            </label>
+                        </div>
+
+                        <div class="cell small-6">
+                            <button type="submit" class="button">Send Request</button>
+                            <a class="button" asp-action="UserPortfolio" asp-controller="UserPort">Return to Homepage</a>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+        </form>
+
 
     </div>
 </div>

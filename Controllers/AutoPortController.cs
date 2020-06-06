@@ -32,16 +32,19 @@ namespace UserVehicleSection.Controllers
 
             //var servicedHistDb = _repo.GetServicedHists;
 
+
+
             // To Get The Vehicle Requests , excluding those that have been Serviced and completed 
 
-            var actuall = _repo.GetVehReqs.Include(a => a.ServiceReqDb).Include(sp => sp.ServicedHistDb)
+            var actuall = _repo.GetVehReqs.Include(a => a.ServiceReqDb).ThenInclude(ap => ap.Assign.Technician).Include(ap => ap.ServiceReqDb).ThenInclude(ap => ap.Assign.Service)
+                .Include(sp => sp.ServicedHistDb).Include(dl => dl.MessageDb)
                 .Include(sp => sp.Vehicle).ThenInclude(s => s.User).Where(vh => vh.UserId.Equals(int.Parse(Request.Cookies["UserID"])));
 
             //string returnString = String.Empty;
 
             foreach (var vehRequest in actuall)
             {
-                if (vehRequest.ServicedHistDb.Count != 0)
+                if (vehRequest.ServicedHistDb.Count != 0 || vehRequest.MessageDb.Count != 0)
                 {
                     actuall = actuall.Where(sp => sp != vehRequest);
                 }
