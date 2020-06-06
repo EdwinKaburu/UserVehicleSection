@@ -18,22 +18,33 @@
 }
 
 <form id="forms1" asp-action="ShopServices" asp-controller="AutoPort" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
     <div class="grid-container fluid">
         <div class="grid-x grid-margin-x">
 
             <div class="cell small-6">
+
+                <span asp-validation-for="ServiceName" class="text-danger"></span>
+
                 <label asp-for="ServiceName">
                     Enter Service Name
                     <input asp-for="ServiceName" />
                 </label>
             </div>
             <div class="cell small-6">
+
+                <span asp-validation-for="ServiceCost" class="text-danger"></span>
+
                 <label asp-for="ServiceCost">
                     Enter Service Cost
                     <input asp-for="ServiceCost" />
                 </label>
             </div>
             <div class="cell small-6">
+
+                <span asp-validation-for="ServiceDescription" class="text-danger"></span>
+
                 <label>
                     Enter Service Description
                     <input asp-for="ServiceDescription" />
@@ -41,7 +52,7 @@
             </div>
             <div class="cell small-6">
                 <button type="submit" class="button">Add New Service</button>
-                <a class="button" asp-controller="AutoPort" asp-action="ShopTech">Assign Service to Technician</a>
+                <a class="button" asp-controller="AutoPort" asp-action="AssignShopTech">Assign Service to Technician</a>
             </div>
             <div class="cell small-6">
                 <a asp-controller="AutoPort" asp-action="ShopPortfolio">Return To Shop-Portfolio</a>

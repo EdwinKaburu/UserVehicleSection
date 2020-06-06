@@ -26,7 +26,7 @@
                     <div class="grid-container fluid">
                         <div class="grid-x">
                             <div class="cell shrink">
-                                <div class="card" >
+                                <div class="card">
 
                                     <img src="https://get.foundation/sites/docs/assets/img/orbit/02.jpg">
 
@@ -97,7 +97,7 @@
                                     <div class="grid-x">
 
                                         <div class="cell auto">
-                                            <button type="submit" class="button">Sign Out</button>
+                                            <a class="button" asp-controller="Accounts" asp-action="AccountManagement">Sign Out</a>
                                             <button type="submit" class="button">Edit Profile</button>
                                         </div>
 
@@ -128,7 +128,7 @@
 
                                     @foreach (var item in Model.ShopTeches)
                                     {
-                                       
+
                                         <tr>
                                             <td>@Model.User.UserName</td>
                                             <td>@item.TechnicianName</td>
@@ -153,6 +153,7 @@
                                     }
                                 </tbody>
                             </table>
+
                         </div>
                         <div class="cell auto">
                             <a class="button" asp-controller="AutoPort" asp-action="ShopTech"> Add New Technician </a>
@@ -267,13 +268,13 @@
 
                                                     @*<div class="reveal" id="@modula" data-reveal data-overlay="false">
 
-                                                        @await Html.PartialAsync("_MessageSection.cshtml", message);
+                                                            @await Html.PartialAsync("_MessageSection.cshtml", message);
 
-                                                        <p>Send to :  @ite.Vehicle.User.UserName</p>
-                                                        <button class="close-button" data-close aria-label="Close reveal" type="button">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>*@
+                                                            <p>Send to :  @ite.Vehicle.User.UserName</p>
+                                                            <button class="close-button" data-close aria-label="Close reveal" type="button">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>*@
 
                                                 </td>
                                                 <td>
@@ -308,9 +309,3 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-

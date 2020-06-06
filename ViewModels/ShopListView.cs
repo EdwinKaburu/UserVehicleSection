@@ -12,6 +12,8 @@ namespace UserVehicleSection.ViewModels
         public UserDb User { get; set; }
         public IEnumerable<ShopTechDb> ShopTeches { get; set; }
 
+        public IEnumerable<ShopTechDb> ShopTeches1 { get; set; }
+
         public IEnumerable<ShopServicesDb> ShopServices { get; set; }
 
         public IEnumerable<AssignedTechDb> AssignedTeches { get; set; }

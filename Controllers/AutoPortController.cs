@@ -25,17 +25,19 @@ namespace UserVehicleSection.Controllers
         {
 
 
-            var ShopReqVeh = _repo.GetVehReqs.Where(s => s.UserId.Equals(int.Parse(shopID))).Include(a => a.ServiceReqDb).Include(sp => sp.Vehicle).Include(u => u.Vehicle.User);
+            //var ShopReqVeh = _repo.GetVehReqs.Where(s => s.UserId.Equals(int.Parse(shopID))).Include(a => a.ServiceReqDb).Include(sp => sp.Vehicle).Include(u => u.Vehicle.User);
 
-            var test = _repo.GetVehReqs.Include(a => a.ServiceReqDb).Include(sp => sp.ServicedHistDb)
-                .Include(sp => sp.Vehicle).ThenInclude(s => s.User).Where(vh => vh.UserId.Equals(int.Parse(shopID)));
+          //  var test = _repo.GetVehReqs.Include(a => a.ServiceReqDb).Include(sp => sp.ServicedHistDb)
+           //     .Include(sp => sp.Vehicle).ThenInclude(s => s.User).Where(vh => vh.UserId.Equals(int.Parse(shopID)));
 
-            var servicedHistDb = _repo.GetServicedHists;
+            //var servicedHistDb = _repo.GetServicedHists;
+
+            // To Get The Vehicle Requests , excluding those that have been Serviced and completed 
 
             var actuall = _repo.GetVehReqs.Include(a => a.ServiceReqDb).Include(sp => sp.ServicedHistDb)
-                .Include(sp => sp.Vehicle).ThenInclude(s => s.User).Where(vh => vh.UserId.Equals(int.Parse(shopID)));
+                .Include(sp => sp.Vehicle).ThenInclude(s => s.User).Where(vh => vh.UserId.Equals(int.Parse(Request.Cookies["UserID"])));
 
-            string returnString = String.Empty;
+            //string returnString = String.Empty;
 
             foreach (var vehRequest in actuall)
             {
@@ -44,12 +46,15 @@ namespace UserVehicleSection.Controllers
                     actuall = actuall.Where(sp => sp != vehRequest);
                 }
             }
-            
+
+
+           // var shopTeches = _repo.GetShopTeches.Include(at => at.AssignedTechDb).ThenInclude(sb => sb.Service).Where(ap => ap.UserId.Equals(int.Parse(shopID)));
+
             var shop_user = new ShopListView
             {
-                User = _repo.GetUserDbs.Where(s => s.UserId.Equals(int.Parse(shopID))).Include(s => s.Image).FirstOrDefault(),
-                ShopTeches = _repo.GetShopTeches.Where(s => s.UserId.Equals(int.Parse(shopID))).Include(a => a.AssignedTechDb).ThenInclude(s => s.Service),
-                ShopServices = _repo.GetShopServices.Where(s => s.UserId.Equals(int.Parse(shopID))),
+                User = _repo.GetUserDbs.Where(s => s.UserId.Equals(int.Parse(Request.Cookies["UserID"]))).Include(s => s.Image).FirstOrDefault(),
+                ShopTeches = _repo.GetShopTeches.Where(s => s.UserId.Equals(int.Parse(Request.Cookies["UserID"]))).Include(a => a.AssignedTechDb).ThenInclude(s => s.Service),
+                ShopServices = _repo.GetShopServices.Where(s => s.UserId.Equals(int.Parse(Request.Cookies["UserID"]))),
                 ShopReqVehDbs = actuall
             };
             return View(shop_user);
@@ -69,6 +74,9 @@ namespace UserVehicleSection.Controllers
         [HttpPost]
         public async Task<IActionResult> ShopTech(TechnicianModel technicianModel)
         {
+
+            var shop_services = _repo.GetShopServices.Where(s => s.UserId.Equals(int.Parse(Request.Cookies["UserID"])));
+
             if (ModelState.IsValid)
             {
                 ShopTechDb techDb = new ShopTechDb
@@ -82,7 +90,11 @@ namespace UserVehicleSection.Controllers
 
                 if (result)
                 {
-                    var service = _repo.GetShopServices.Where(name => name.ServiceName.Equals(technicianModel.AssignedService)).FirstOrDefault();
+
+                    //var service = _repo.GetShopServices.Where(name => name.ServiceName.Equals(technicianModel.AssignedService)).FirstOrDefault();
+
+                    var service = shop_services.Where(sn => sn.ServiceName.Equals(technicianModel.AssignedService)).FirstOrDefault();
+
                     AssignedTechDb assignedTech = new AssignedTechDb
                     {
                         TechnicianId = techDb.TechnicianId,
@@ -93,7 +105,7 @@ namespace UserVehicleSection.Controllers
 
                     if (result1)
                     {
-                        ViewBag.TechSuccess = "Shop Tech Added Added";
+                        ViewBag.TechSuccess = $"{technicianModel.TechnicianName} is Added and Assigned to {technicianModel.AssignedService}";
                     }
                     else
                     {
@@ -106,10 +118,18 @@ namespace UserVehicleSection.Controllers
                 }
             }
 
+            //return RedirectToAction("ShopTech", "AutoPort");
+            //return View("ShopTech");
+
             return View(new TechnicianModel
             {
-                ShopServices = _repo.GetShopServices.Where(s => s.UserId.Equals(int.Parse(Request.Cookies["UserID"])))
+                ShopServices = shop_services
             });
+
+            //return View(new TechnicianModel
+            //{
+            //    ShopServices = _repo.GetShopServices.Where(s => s.UserId.Equals(int.Parse(Request.Cookies["UserID"])))
+            //});
         }
 
         //Assign Technician To Service
@@ -129,8 +149,8 @@ namespace UserVehicleSection.Controllers
 
             AssignedTechDb assignTech = new AssignedTechDb
             {
-                TechnicianId = _repo.GetShopTeches.Where(name => name.TechnicianName.Equals(model.TechName)).FirstOrDefault().TechnicianId,
-                ServiceId = _repo.GetShopServices.Where(name => name.ServiceName.Equals(model.AssignedService)).FirstOrDefault().ServiceId
+                TechnicianId = _repo.GetShopTeches.Where(name => name.TechnicianName.Equals(model.TechName) && name.UserId.Equals(int.Parse(Request.Cookies["UserID"]))).FirstOrDefault().TechnicianId,
+                ServiceId = _repo.GetShopServices.Where(name => name.ServiceName.Equals(model.AssignedService) && name.UserId.Equals(int.Parse(Request.Cookies["UserID"]))).FirstOrDefault().ServiceId
             };
 
 
@@ -138,7 +158,7 @@ namespace UserVehicleSection.Controllers
 
             if (result)
             {
-                ViewBag.AssignedTechSucess = "Services Added to Technician";
+                ViewBag.AssignedTechSucess = $"{model.AssignedService} Services Added to {model.TechName}";
             }
             else
             {

@@ -93,10 +93,12 @@ namespace UserVehicleSection.Controllers
 
             var shopServices = _repo.GetShopServices.Include(s => s.AssignedTechDb).ThenInclude(sp => sp.Technician).Where(ids => ids.UserId.Equals(int.Parse(shopsID)));
 
+            var shop_Services = _repo.GetShopServices.Include(sp => sp.AssignedTechDb).ThenInclude(ap => ap.Technician).Where(ids => ids.UserId.Equals(int.Parse(shopsID)));
+
             var user = new VehicleReqModel
             {
                 GetUser = _repo.GetUserDbs.Where(s => s.UserId.Equals(int.Parse(shopsID))).FirstOrDefault(),
-                ShopServices = shopServices,
+                ShopServices = shop_Services,
                 CheckBoxItems = checkList,
                 AssignedTeches = Teches,
                 VehicleID = int.Parse(vehicleID),

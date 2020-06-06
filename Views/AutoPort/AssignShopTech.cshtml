@@ -19,10 +19,18 @@
 }
 
 <form id="forms1" asp-action="AssignShopTech" asp-controller="AutoPort" method="post">
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
     <div class="grid-container fluid">
         <div class="grid-x grid-margin-x">
 
+            
+
             <div class="cell small-6">
+
+                <span asp-validation-for="AssignedService" class="text-danger"></span>
+
                 <label>
                     Select Services
                     <select id="combobox" class="serviceID" asp-for="AssignedService">
@@ -36,6 +44,9 @@
                 </label>
             </div>
             <div class="cell small-6">
+
+                <span asp-validation-for="TechName" class="text-danger"></span>
+
                 <label>
                     Assign Selected Technician
                     <select id="combobox" class="serviceID" asp-for="TechName">
@@ -50,7 +61,10 @@
                 <button type="submit" class="button">Assign New Service To Tech</button>
             </div>
             <div class="cell small-6">
-                <a asp-action="ShopPortfolio" asp-controller="AutoPort" asp-route-id="@Model.UserCookie" asp-route-status="true">Return To Shop-Portfolio</a>
+
+                <a asp-action="ShopPortfolio" asp-controller="AutoPort">Return To Shop-Portfolio</a>
+
+                @*<a asp-action="ShopPortfolio" asp-controller="AutoPort" asp-route-id="@Model.UserCookie" asp-route-status="true">Return To Shop-Portfolio</a>*@
             </div>
 
         </div>
