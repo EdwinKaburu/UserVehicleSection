@@ -21,7 +21,7 @@ namespace UserVehicleSection.ViewModels
         [Required]
         public string TechnicianDescription { get; set; }
 
-        [Required]
+        
         public string AssignedService { get; set; }
 
         public IEnumerable<ShopTechDb> TechDbs { get; set; }

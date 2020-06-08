@@ -64,13 +64,16 @@
         <div class="top-bar-left">
             <ul class="dropdown menu" data-dropdown-menu>
                 <li class="menu-text"> Auto Destination</li>
-                <li><a asp-controller="Account" asp-action="Index">About</a></li>
+                <li><a asp-controller="Accounts" asp-action="About">About</a></li>
                 <li><a asp-controller="Accounts" asp-action="AccountManagement">Register/Login</a></li>
             </ul>
         </div>
         <div class="top-bar-right">
             <ul class="menu">
-                <li><button type="button" class="button">DashBoard</button></li>
+                <li>
+                    <a style="color:#000000" class="button" asp-controller="Accounts" asp-action="AccountManagement">Register/Login</a>
+                </li>
+                @*<li><button type="submit" asp-controller="Accounts" asp-action="AccountManagement"  class="button">Register/LogIn</button></li>*@
             </ul>
         </div>
     </div>

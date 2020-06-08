@@ -25,6 +25,12 @@ namespace UserVehicleSection.Controllers
             _repo = repository;
         }
 
+        public IActionResult About()
+        {
+            return View();
+        }
+
+
         [HttpGet()]
         public async Task<IActionResult> Serviced([FromQuery(Name = "vehID")] string vehID, [FromQuery(Name = "shopID")] string shopID,
             [FromQuery(Name = "serCost")] string totalCost, [FromQuery(Name = "acceptance")] string condition, [FromQuery(Name = "shopPortfolio")] string redirect)

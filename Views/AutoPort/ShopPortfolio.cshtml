@@ -89,23 +89,6 @@
                                 </div>
 
                             </div>
-                            <div class="cell shrink" style="margin-left:10px">
-
-
-                                <div class="grid-container fluid">
-
-                                    <div class="grid-x">
-
-                                        <div class="cell auto">
-                                            <a class="button" asp-controller="Accounts" asp-action="AccountManagement">Sign Out</a>
-                                            <button type="submit" class="button">Edit Profile</button>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
                         </div>
                     </div>
 
@@ -156,7 +139,7 @@
 
                         </div>
                         <div class="cell auto">
-                            <a class="button" asp-controller="AutoPort" asp-action="ShopTech"> Add New Technician </a>
+                            <a class="button" asp-controller="AutoPort" asp-action="CreateTechnician"> Add New Technician </a>
                             <a class="button" asp-controller="AutoPort" asp-action="AssignShopTech">Assign Service To Technician</a>
                         </div>
                     </div>
@@ -338,7 +321,7 @@
 
                                                                     <div class="reveal" id="@modula" data-reveal data-overlay="false">
 
-                                                                        @await Html.PartialAsync("_MessageSection.cshtml", message);
+                                                                        @await Html.PartialAsync("_MessageSection.cshtml", message)
 
                                                                         <p>Send to :  @request.Vehicle.User.UserName</p>
                                                                         <button class="close-button" data-close aria-label="Close reveal" type="button">
