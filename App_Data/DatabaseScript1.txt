@@ -1,0 +1,149 @@
+﻿use UserVehicleSection
+
+CREATE TABLE [dbo].[UserImgDb] (
+    [ImageID] INT  IDENTITY (1, 1) NOT NULL,
+    [UserImg] TEXT NULL,
+    PRIMARY KEY CLUSTERED ([ImageID] ASC)
+);
+
+CREATE TABLE [dbo].[UserDb] (
+    [UserID]          INT           IDENTITY (1, 1) NOT NULL,
+    [UserName]        NVARCHAR (50) NULL,
+    [UserEmail]       NVARCHAR (50) NULL,
+    [UserPassword]    TEXT          NULL,
+    [UserAddress]     NVARCHAR (50) NULL,
+    [UserCity]        NVARCHAR (20) NULL,
+    [UserCountry]     NVARCHAR (20) NULL,
+    [UserDescription] TEXT          NULL,
+    [ImageID]         INT           NULL,
+    [IsShop]          BIT           NULL,
+    PRIMARY KEY CLUSTERED ([UserID] ASC),
+);
+
+CREATE TABLE [dbo].[AssignedTechDb] (
+    [AssignID]     INT IDENTITY (1, 1) NOT NULL,
+    [TechnicianID] INT NULL,
+    [ServiceID]    INT NULL,
+    PRIMARY KEY CLUSTERED ([AssignID] ASC),
+);
+
+
+CREATE TABLE [dbo].[MessageDb] (
+    [MessageID]   INT  IDENTITY (1, 1) NOT NULL,
+    [VehReqID]    INT  NULL,
+    [UserID]      INT  NULL,
+    [Message]     TEXT NULL,
+    [MessageDate] DATE NULL,
+    PRIMARY KEY CLUSTERED ([MessageID] ASC),
+);
+
+
+CREATE TABLE [dbo].[ServicedHistDb] (
+    [HistoryID] INT   IDENTITY (1, 1) NOT NULL,
+    [VehReqID]  INT   NULL,
+    [Cost]      MONEY NULL,
+    [Serviced]  BIT   NULL,
+    [UserID]    INT   NULL,
+    PRIMARY KEY CLUSTERED ([HistoryID] ASC),
+);
+
+CREATE TABLE [dbo].[ServiceReqDb] (
+    [SerReqID] INT IDENTITY (1, 1) NOT NULL,
+    [VehReqID] INT NULL,
+    [AssignID] INT NULL,
+    PRIMARY KEY CLUSTERED ([SerReqID] ASC),
+);
+
+
+CREATE TABLE [dbo].[ShopServicesDb] (
+    [ServiceID]          INT           IDENTITY (1, 1) NOT NULL,
+    [ServiceName]        NVARCHAR (50) NULL,
+    [UserID]             INT           NULL,
+    [ServiceCost]        MONEY         NULL,
+    [ServiceDescription] TEXT          NULL,
+    PRIMARY KEY CLUSTERED ([ServiceID] ASC),
+);
+
+CREATE TABLE [dbo].[ShopTechDb] (
+    [TechnicianID]          INT           IDENTITY (1, 1) NOT NULL,
+    [UserID]                INT           NULL,
+    [TechnicianName]        NVARCHAR (50) NULL,
+    [TechnicianDescription] TEXT          NULL,
+    PRIMARY KEY CLUSTERED ([TechnicianID] ASC),
+);
+
+
+CREATE TABLE [dbo].[UserVehDb] (
+    [VehicleID]      INT           IDENTITY (1, 1) NOT NULL,
+    [UserID]         INT           NULL,
+    [VehicleMake]    NVARCHAR (20) NULL,
+    [VehicleModel]   NVARCHAR (20) NULL,
+    [VehicleYear]    NVARCHAR (5)  NULL,
+    [VehicleMileage] INT           NULL,
+    [VehicleVinNum]  NTEXT         NULL,
+    PRIMARY KEY CLUSTERED ([VehicleID] ASC),
+);
+
+CREATE TABLE [dbo].[VehReqDb] (
+    [VehReqID]      INT           IDENTITY (1, 1) NOT NULL,
+    [VehicleID]     INT           NULL,
+    [VehReqName]    NVARCHAR (50) NULL,
+    [VehReqDate]    DATE          NULL,
+    [UserID]        INT           NULL,
+    [VehReqMessage] TEXT          NULL,
+    PRIMARY KEY CLUSTERED ([VehReqID] ASC),
+);
+
+
+
+
+ALTER TABLE [dbo].[UserDb]
+ADD FOREIGN KEY ([ImageID]) REFERENCES [dbo].[UserImgDb] ([ImageID])
+
+ALTER TABLE [dbo].[AssignedTechDb]
+ADD FOREIGN KEY ([TechnicianID]) REFERENCES [dbo].[ShopTechDb] ([TechnicianID]),
+FOREIGN KEY ([ServiceID]) REFERENCES [dbo].[ShopServicesDb] ([ServiceID])
+
+ALTER TABLE [dbo].[MessageDb]
+ADD FOREIGN KEY ([VehReqID]) REFERENCES [dbo].[VehReqDb] ([VehReqID]),
+    FOREIGN KEY ([UserID]) REFERENCES [dbo].[UserDb] ([UserID])
+
+ALTER TABLE [dbo].[ServicedHistDb]
+ADD FOREIGN KEY ([VehReqID]) REFERENCES [dbo].[VehReqDb] ([VehReqID]),
+    FOREIGN KEY ([UserID]) REFERENCES [dbo].[UserDb] ([UserID])
+
+ALTER TABLE [dbo].[ServiceReqDb]
+ADD FOREIGN KEY ([VehReqID]) REFERENCES [dbo].[VehReqDb] ([VehReqID]),
+    FOREIGN KEY ([AssignID]) REFERENCES [dbo].[AssignedTechDb] ([AssignID])
+
+ALTER TABLE [dbo].[ShopServicesDb]
+ADD FOREIGN KEY ([UserID]) REFERENCES [dbo].[UserDb] ([UserID])
+
+ALTER TABLE [dbo].[ShopTechDb]
+ADD FOREIGN KEY ([UserID]) REFERENCES [dbo].[UserDb] ([UserID])
+
+ALTER TABLE [dbo].[UserVehDb]
+ADD FOREIGN KEY ([UserID]) REFERENCES [dbo].[UserDb] ([UserID])
+
+ALTER TABLE [dbo].[VehReqDb]
+ADD FOREIGN KEY ([VehicleID]) REFERENCES [dbo].[UserVehDb] ([VehicleID]),
+    FOREIGN KEY ([UserID]) REFERENCES [dbo].[UserDb] ([UserID])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

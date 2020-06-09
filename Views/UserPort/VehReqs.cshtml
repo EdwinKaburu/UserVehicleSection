@@ -10,7 +10,8 @@
     if (alert != null)
     {
         <div class="callout success" data-closable>
-            <h3>@alert</h3>
+            <h5>@alert</h5>
+            <p>You can Redirect Back to Portfolio</p>
             <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -19,14 +20,145 @@
 
 }
 
-<h1>@Model.GetUser.UserName</h1>
+@*<h1>@Model.GetUser.UserName</h1>*@
+
+<br />
 
 <div class="grid-container fluid">
     <div class="grid-x">
 
 
+        @*<div class="cell">
+                <hr />
+            </div>*@
+
         <form asp-action="CheckBoxTester" asp-controller="UserPort" asp-route-shopID="@Model.UserID" asp-route-vehID="@Model.VehicleID" method="post">
 
+
+            <div class="cell">
+
+                <div class="grid-container fluid">
+
+                    <div class="grid-x grid-padding-x">
+
+
+                        <div class="cell small-6">
+
+                            <div class="grid-container fluid">
+
+                                <div class="grid-x">
+
+                                    <div class="cell">
+                                        <img src="https://get.foundation/sites/docs/assets/img/orbit/02.jpg" />
+                                    </div>
+
+                                    <div class="cell">
+
+                                        <div class="grid-container fluid">
+
+                                            <div class="grid-x">
+
+                                                <div class="cell small-6">
+                                                    <label>Name</label>
+                                                    <label>@Model.GetUser.UserName</label>
+
+                                                    <br />
+                                                </div>
+
+                                                <div class="cell small-6">
+                                                    <label>Email</label>
+                                                    <label>@Model.GetUser.UserEmail</label>
+
+                                                    <br />
+                                                </div>
+
+
+                                                <div class="cell small-6">
+                                                    <label>Address</label>
+                                                    <label>@Model.GetUser.UserAddress</label>
+
+                                                    <br />
+                                                </div>
+
+
+                                                <div class="cell small-6">
+                                                    <label>City</label>
+                                                    <label>@Model.GetUser.UserCity</label>
+
+                                                    <br />
+                                                </div>
+
+                                                <div class="cell small-6">
+                                                    <label>County/State/Region/Country</label>
+                                                    <label>@Model.GetUser.UserCountry</label>
+
+                                                    <br />
+                                                </div>
+
+                                                <div class="cell">
+                                                    <label>Description</label>
+                                                    <label>@Model.GetUser.UserDescription</label>
+
+                                                    <br />
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="cell small-6">
+
+
+                            <div class="grid-container fluid">
+                                <div class="grid-x grid-margin-x">
+
+                                    <div class="cell small-6">
+                                        <label asp-for="VehReqName">
+                                            Enter Request Name
+                                            <input asp-for="VehReqName" />
+                                        </label>
+                                    </div>
+
+                                    <div class="cell small-6">
+                                        <label asp-for="VehdateTime">
+                                            Enter A Requested Date
+                                            <input asp-for="VehdateTime" />
+                                        </label>
+                                    </div>
+
+                                    <div class="cell">
+                                        <label asp-for="VehMessage">
+                                            Send Request Message
+                                            <textarea asp-for="VehMessage"></textarea>
+                                        </label>
+                                    </div>
+
+                                    <div class="cell small-6">
+                                        <button type="submit" class="button">Send Request</button>
+                                        <a class="button" asp-action="UserPortfolio" asp-controller="UserPort">Return to Homepage</a>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <hr />
+
+            </div>
 
 
             <div class="cell">
@@ -34,53 +166,17 @@
 
                 <div class="grid-container fluid">
 
-                    <div class="grid-x grid-padding-x">
+                    <div class="grid-x grid-margin-x">
 
 
                         @foreach (var services in Model.ShopServices)
                         {
-                            @*<form asp-action="CheckBoxTester" asp-controller="UserPort" asp-route-shopID="@Model.UserID" asp-route-vehID="@Model.VehicleID" method="post">*@
-
-
-
-                            @*//small-4*@
-                            <div class="cell">
+                            <div class="cell small-4">
 
                                 <div class="card">
 
                                     <div class="card-divider">
-
-                                        <!-- Use Lable Next Time
-                                        -->
-                                        <label style="text-align:left !important;">
-                                            @services.ServiceName &nbsp; &nbsp; &nbsp; &nbsp;
-
-                                            @services.ServiceCost
-                                        </label>
-                                        <label>@services.ServiceDescription  &nbsp; &nbsp; &nbsp; &nbsp;</label>
-                                        @*<div class="grid-container fluid">
-                                                <div class="grid-x">
-
-
-                                                    <div class="cell small-4">
-
-                                                        <label>@services.ServiceName</label>
-                                                    </div>
-
-                                                    <div class="cell small-4">
-
-                                                        <label>@services.ServiceDescription</label>
-                                                    </div>
-
-                                                    <div class="cell small-4">
-
-                                                        <label>@services.ServiceCost</label>
-                                                    </div>
-                                                </div>
-
-                                            </div>*@
-
-                                        @*<h4>@services.ServiceName</h4>*@
+                                        <h4>@services.ServiceName</h4>
                                     </div>
 
                                     @*<img src="https://toppng.com/uploads/preview/tools-icons-clip-transparent-fix-icon-11553448942vb0gu6dlx6.png" />*@
@@ -100,52 +196,26 @@
 
                                                             <div class="grid-x">
 
-
                                                                 <div class="cell small-6">
+
                                                                     <label>Technician Name</label>
-                                                                </div>
-                                                                <div class="cell small-6">
                                                                     <label>@technicians.Technician.TechnicianName</label>
+
                                                                 </div>
 
-
-                                                                <div class="cell small-6">
-                                                                    <label>Technician Description</label>
-                                                                </div>
-                                                                <div class="cell small-6">
-                                                                    <label>@technicians.Technician.TechnicianDescription</label>
-                                                                </div>
-
-
-                                                                <div class="cell small-6">
-                                                                    <label>Select Technician</label>
-                                                                </div>
-                                                                <div class="cell small-6">
+                                                                <div class="cell small-6 text-center">
                                                                     <label>
+                                                                        Select Technician
                                                                         <input id="checkbox" name="Blanks" value="@technicians.AssignId" type="checkbox" />
                                                                     </label>
                                                                 </div>
 
+                                                                <div class="cell">
+                                                                    <label>Technician Description</label>
+                                                                    <label>@technicians.Technician.TechnicianDescription</label>
+                                                                </div>
 
-                                                                @*<div class="cell small-4">
 
-                                                                        <label>Technician Name</label>
-                                                                        <label>@technicians.Technician.TechnicianName</label>
-
-                                                                    </div>
-
-                                                                    <div class="cell small-4">
-                                                                        <label>Technician Description</label>
-                                                                        <label>@technicians.Technician.TechnicianDescription</label>
-                                                                    </div>
-
-                                                                    <div class="cell small-4">
-                                                                        <label>Select</label>
-                                                                        <label>
-                                                                            <input id="checkbox" name="Blanks" value="@technicians.AssignId" type="checkbox" />
-                                                                        </label>
-
-                                                                    </div>*@
                                                             </div>
 
                                                         </div>
@@ -154,34 +224,34 @@
                                                         <hr />
                                                     </div>
 
-                                                    @*<div class="cell small-6">
-                                                            <label>Technician Name</label>
-                                                            <label>@technicians.Technician.TechnicianName</label> <hr />
-
-
-                                                        </div>
-
-
-                                                        <div class="cell small-6">
-
-                                                            <label>Select</label>
-                                                            <label>
-                                                                <input id="checkbox" name="Blanks" value="@technicians.AssignId" type="checkbox" />
-                                                            </label>
-                                                            <hr />
-                                                        </div>
-                                                        <div class="cell small-6">
-
-                                                            <label>Technician Description</label>
-                                                            <label>@technicians.Technician.TechnicianDescription</label><hr />
-
-                                                        </div>*@
                                                 }
 
 
                                                 <div class="cell">
 
+                                                    <label>Service Description</label>
+                                                    <label>@services.ServiceDescription</label>
 
+                                                    <hr />
+                                                </div>
+
+                                                <div class="cell">
+
+                                                    <div class="grid-container fluid">
+
+                                                        <div class="grid-x">
+
+                                                            <div class="cell small-6">
+                                                                <label>Service Cost</label>
+                                                            </div>
+
+                                                            <div class="cell small-6 text-center">
+                                                                <label>$ @services.ServiceCost</label>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
                                                 </div>
 
                                             </div>
@@ -194,7 +264,6 @@
 
                             </div>
 
-                            @*</form>*@
                         }
 
                     </div>
@@ -203,48 +272,7 @@
 
             </div>
 
-            <div class="cell">
-                <!-- Form Section -->
-
-
-                <h3 style="text-align:center">Enter Vehicle Request Details</h3>
-                <div class="grid-container fluid">
-                    <div class="grid-x grid-margin-x">
-
-                        <div class="cell small-6">
-                            <label asp-for="VehReqName">
-                                Enter Request Name
-                                <input asp-for="VehReqName" />
-                            </label>
-                        </div>
-
-                        <div class="cell small-6">
-                            <label asp-for="VehdateTime">
-                                Enter A Requested Date
-                                <input asp-for="VehdateTime" />
-                            </label>
-                        </div>
-
-                        <div class="cell small-6">
-                            <label asp-for="VehMessage">
-                                Send Request Message
-                                <textarea asp-for="VehMessage"></textarea>
-                            </label>
-                        </div>
-
-                        <div class="cell small-6">
-                            <button type="submit" class="button">Send Request</button>
-                            <a class="button" asp-action="UserPortfolio" asp-controller="UserPort">Return to Homepage</a>
-                        </div>
-
-                    </div>
-                </div>
-
-
-            </div>
-
         </form>
-
 
     </div>
 </div>

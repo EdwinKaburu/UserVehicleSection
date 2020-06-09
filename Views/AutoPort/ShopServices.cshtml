@@ -8,12 +8,13 @@
 
     if (alert != null)
     {
-        <div class="callout success" data-closable>
-            <h3>@alert</h3>
-            <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+    <div class="callout success" data-closable>
+        <h5>@alert</h5>
+        <p>You can Redirect Back to Portfolio</p>
+        <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
     }
 }
 
@@ -55,7 +56,7 @@
                 <a class="button" asp-controller="AutoPort" asp-action="AssignShopTech">Assign Service to Technician</a>
             </div>
             <div class="cell small-6">
-                <a asp-controller="AutoPort" asp-action="ShopPortfolio">Return To Shop-Portfolio</a>
+                <a class="button" asp-controller="AutoPort" asp-action="ShopPortfolio">Return To Shop-Portfolio</a>
             </div>
 
         </div>

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\edwinPC\\Documents\\ProjectDraft\\Dark Theme\\DarkThemProject\\UserVehicleSection\\UserVehicleSection.csproj": {}
+    "C:\\Users\\edwinPC\\Documents\\ProjectDraft\\ProjectDraft\\UserVehicleSection\\UserVehicleSection.csproj": {}
   },
   "projects": {
-    "C:\\Users\\edwinPC\\Documents\\ProjectDraft\\Dark Theme\\DarkThemProject\\UserVehicleSection\\UserVehicleSection.csproj": {
+    "C:\\Users\\edwinPC\\Documents\\ProjectDraft\\ProjectDraft\\UserVehicleSection\\UserVehicleSection.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\edwinPC\\Documents\\ProjectDraft\\Dark Theme\\DarkThemProject\\UserVehicleSection\\UserVehicleSection.csproj",
+        "projectUniqueName": "C:\\Users\\edwinPC\\Documents\\ProjectDraft\\ProjectDraft\\UserVehicleSection\\UserVehicleSection.csproj",
         "projectName": "UserVehicleSection",
-        "projectPath": "C:\\Users\\edwinPC\\Documents\\ProjectDraft\\Dark Theme\\DarkThemProject\\UserVehicleSection\\UserVehicleSection.csproj",
+        "projectPath": "C:\\Users\\edwinPC\\Documents\\ProjectDraft\\ProjectDraft\\UserVehicleSection\\UserVehicleSection.csproj",
         "packagesPath": "C:\\Users\\edwinPC\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\edwinPC\\Documents\\ProjectDraft\\Dark Theme\\DarkThemProject\\UserVehicleSection\\obj\\",
+        "outputPath": "C:\\Users\\edwinPC\\Documents\\ProjectDraft\\ProjectDraft\\UserVehicleSection\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\edwinPC\\AppData\\Roaming\\NuGet\\NuGet.Config",

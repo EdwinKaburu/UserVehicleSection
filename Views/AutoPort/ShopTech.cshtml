@@ -10,7 +10,8 @@
     if (alert != null)
     {
         <div class="callout success" data-closable>
-            <h3>@alert</h3>
+            <h5>@alert</h5>
+            <p>You can Redirect Back to Portfolio</p>
             <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -22,6 +23,8 @@
 <form id="forms1" asp-action="ShopTech" asp-controller="AutoPort" method="post">
 
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
 
     <div class="grid-container fluid">
         <div class="grid-x grid-margin-x">
@@ -57,11 +60,12 @@
             </div>
             <div class="cell small-6">
                 <button type="submit" class="button">Add New Technician </button>
+
                 <a class="button" asp-controller="AutoPort" asp-action="AssignShopTech">Assign Service to Technician</a>
             </div>
             <div class="cell small-6">
 
-                <a asp-controller="AutoPort" asp-action="ShopPortfolio">Return To Shop-Portfolio</a>
+                <a class="button" asp-controller="AutoPort" asp-action="ShopPortfolio">Return To Shop-Portfolio</a>
 
                 @*<a asp-controller="AutoPort" asp-action="ShopPortfolio" asp-route-id="@Model.UserCookie" asp-route-status="true">Return To Shop-Portfolio</a>*@
             </div>

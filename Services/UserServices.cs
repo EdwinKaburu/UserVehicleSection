@@ -13,9 +13,9 @@ namespace UserVehicleSection.Services
     public class UserServices : IUserServices
     {
 
-        public UserSectionContext context;
+        public UserVehicleSectionContext context;
 
-        public UserServices(UserSectionContext ctx)
+        public UserServices(UserVehicleSectionContext ctx)
         {
             context = ctx;
         }

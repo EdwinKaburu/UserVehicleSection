@@ -68,7 +68,7 @@ namespace UserVehicleSection.Controllers
 
             var shops = new VehicleReqModel
             {
-                Shoppers = _repo.GetUserDbs.Where(s => s.IsShop.Equals(true)),
+                Shoppers = _repo.GetUserDbs.Include(ap => ap.Image).Where(s => s.IsShop.Equals(true)),
                 VehicleID = int.Parse(vehicleID)
             };
 
@@ -127,7 +127,7 @@ namespace UserVehicleSection.Controllers
                 if (result)
                 {
 
-                    string servicereqAdded = String.Empty;
+                    //string servicereqAdded = String.Empty;
 
                     bool reload_error = false;
 
@@ -141,10 +141,10 @@ namespace UserVehicleSection.Controllers
 
                         reload_error = await _repo.CreateServiceReq(serviceReq);
 
-                        if (reload_error)
-                        {
-                            servicereqAdded += $"{ite}\t";
-                        }
+                        //if (reload_error)
+                        //{
+                        //    servicereqAdded += $"{ite}\t";
+                        //}
 
                     }
 
@@ -152,7 +152,7 @@ namespace UserVehicleSection.Controllers
 
                     if (reload_error)
                     {
-                        ViewBag.RequestSent = "Request Sent" + servicereqAdded;
+                        ViewBag.RequestSent = "Vehicle Request Service Sent";
                     }
                     else
                     {

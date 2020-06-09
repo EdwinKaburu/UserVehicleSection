@@ -29,7 +29,7 @@ namespace UserVehicleSection
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<UserSectionContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AutomotiveDb")));
+            services.AddDbContext<UserVehicleSectionContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AutomotiveDb")));
 
 
 
