@@ -10,9 +10,9 @@ namespace UserVehicleSection.Models.Identity
 {
     public class UserStore : IUserStore<UserDb>, IUserPasswordStore<UserDb>
     {
-        private readonly UserSectionContext db;
+        private readonly UserVehicleSectionContext db;
 
-        public UserStore(UserSectionContext db)
+        public UserStore(UserVehicleSectionContext db)
         {
             this.db = db;
         }

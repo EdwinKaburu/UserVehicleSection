@@ -11,7 +11,7 @@ namespace UserVehicleSection.Models
         }
 
         public int ImageId { get; set; }
-        public byte[] UserImg { get; set; }
+        public string UserImg { get; set; }
 
         public virtual ICollection<UserDb> UserDb { get; set; }
     }

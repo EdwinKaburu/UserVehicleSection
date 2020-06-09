@@ -87,7 +87,7 @@
         <div class="grid-x grid-margin-x">
             <div class="cell small-6">
 
-                <p style="color:#000000 !important">Business Log In ? </p>
+                <p style="color:#cacaca !important;">Business Log In ? </p>
 
                 <div class="switch large">
                     <input class="switch-input" id="yes-no" type="checkbox" asp-for="IsShop">
@@ -102,6 +102,13 @@
 
             <div class="cell small-6" style="margin:auto !important">
                 <button type="submit" class="button">Register Account</button>
+            </div>
+
+            <div class="cell">
+                <p>
+                    By Clicking Register Account, you agree to our
+                    <a style="color:#cacaca !important;" asp-controller="Accounts" asp-action="About"> Terms and Conditions </a>
+                </p>
             </div>
         </div>
     </div>

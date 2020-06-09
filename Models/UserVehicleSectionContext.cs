@@ -1,17 +1,16 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using UserVehicleSection.Models.Identity;
 
 namespace UserVehicleSection.Models
 {
-    public partial class UserSectionContext : DbContext
+    public partial class UserVehicleSectionContext : DbContext
     {
-        public UserSectionContext()
+        public UserVehicleSectionContext()
         {
         }
 
-        public UserSectionContext(DbContextOptions<UserSectionContext> options)
+        public UserVehicleSectionContext(DbContextOptions<UserVehicleSectionContext> options)
             : base(options)
         {
         }
@@ -27,24 +26,21 @@ namespace UserVehicleSection.Models
         public virtual DbSet<UserVehDb> UserVehDb { get; set; }
         public virtual DbSet<VehReqDb> VehReqDb { get; set; }
 
-        public virtual DbSet<Role> Roles { get; set; }
-        public virtual DbSet<UserRole> UserRoles { get; set; }
-
-        //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //        {
-        //            if (!optionsBuilder.IsConfigured)
-        //            {
-        //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-        //                optionsBuilder.UseSqlServer("Data Source=DESKTOP-L37PVF3;Initial Catalog=UserSection;Integrated Security=True");
-        //            }
-        //        }
+//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+//        {
+//            if (!optionsBuilder.IsConfigured)
+//            {
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+//                optionsBuilder.UseSqlServer("Data Source=DESKTOP-L37PVF3;Initial Catalog=UserVehicleSection;Integrated Security=True");
+//            }
+//        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<AssignedTechDb>(entity =>
             {
                 entity.HasKey(e => e.AssignId)
-                    .HasName("PK__Assigned__9FFF4C4F8F2C83B9");
+                    .HasName("PK__Assigned__9FFF4C4FEB37F260");
 
                 entity.Property(e => e.AssignId).HasColumnName("AssignID");
 
@@ -55,18 +51,18 @@ namespace UserVehicleSection.Models
                 entity.HasOne(d => d.Service)
                     .WithMany(p => p.AssignedTechDb)
                     .HasForeignKey(d => d.ServiceId)
-                    .HasConstraintName("FK__AssignedT__Servi__36B12243");
+                    .HasConstraintName("FK__AssignedT__Servi__37A5467C");
 
                 entity.HasOne(d => d.Technician)
                     .WithMany(p => p.AssignedTechDb)
                     .HasForeignKey(d => d.TechnicianId)
-                    .HasConstraintName("FK__AssignedT__Techn__35BCFE0A");
+                    .HasConstraintName("FK__AssignedT__Techn__36B12243");
             });
 
             modelBuilder.Entity<MessageDb>(entity =>
             {
                 entity.HasKey(e => e.MessageId)
-                    .HasName("PK__MessageD__C87C037C19775158");
+                    .HasName("PK__MessageD__C87C037C5944F42C");
 
                 entity.Property(e => e.MessageId).HasColumnName("MessageID");
 
@@ -81,18 +77,18 @@ namespace UserVehicleSection.Models
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.MessageDb)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__MessageDb__UserI__3A81B327");
+                    .HasConstraintName("FK__MessageDb__UserI__398D8EEE");
 
                 entity.HasOne(d => d.VehReq)
                     .WithMany(p => p.MessageDb)
                     .HasForeignKey(d => d.VehReqId)
-                    .HasConstraintName("FK__MessageDb__VehRe__398D8EEE");
+                    .HasConstraintName("FK__MessageDb__VehRe__38996AB5");
             });
 
             modelBuilder.Entity<ServiceReqDb>(entity =>
             {
                 entity.HasKey(e => e.SerReqId)
-                    .HasName("PK__ServiceR__371BFCBC4C3344E3");
+                    .HasName("PK__ServiceR__371BFCBCDBCC8839");
 
                 entity.Property(e => e.SerReqId).HasColumnName("SerReqID");
 
@@ -103,18 +99,18 @@ namespace UserVehicleSection.Models
                 entity.HasOne(d => d.Assign)
                     .WithMany(p => p.ServiceReqDb)
                     .HasForeignKey(d => d.AssignId)
-                    .HasConstraintName("FK__ServiceRe__Assig__3E52440B");
+                    .HasConstraintName("FK__ServiceRe__Assig__3D5E1FD2");
 
                 entity.HasOne(d => d.VehReq)
                     .WithMany(p => p.ServiceReqDb)
                     .HasForeignKey(d => d.VehReqId)
-                    .HasConstraintName("FK__ServiceRe__VehRe__3D5E1FD2");
+                    .HasConstraintName("FK__ServiceRe__VehRe__3C69FB99");
             });
 
             modelBuilder.Entity<ServicedHistDb>(entity =>
             {
                 entity.HasKey(e => e.HistoryId)
-                    .HasName("PK__Serviced__4D7B4ADD3653402F");
+                    .HasName("PK__Serviced__4D7B4ADD8AD9EE1D");
 
                 entity.Property(e => e.HistoryId).HasColumnName("HistoryID");
 
@@ -127,18 +123,18 @@ namespace UserVehicleSection.Models
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.ServicedHistDb)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__ServicedH__UserI__3C69FB99");
+                    .HasConstraintName("FK__ServicedH__UserI__3B75D760");
 
                 entity.HasOne(d => d.VehReq)
                     .WithMany(p => p.ServicedHistDb)
                     .HasForeignKey(d => d.VehReqId)
-                    .HasConstraintName("FK__ServicedH__VehRe__3B75D760");
+                    .HasConstraintName("FK__ServicedH__VehRe__3A81B327");
             });
 
             modelBuilder.Entity<ShopServicesDb>(entity =>
             {
                 entity.HasKey(e => e.ServiceId)
-                    .HasName("PK__ShopServ__C51BB0EAACCC9928");
+                    .HasName("PK__ShopServ__C51BB0EA4F9D2FA6");
 
                 entity.Property(e => e.ServiceId).HasColumnName("ServiceID");
 
@@ -153,13 +149,13 @@ namespace UserVehicleSection.Models
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.ShopServicesDb)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__ShopServi__UserI__37A5467C");
+                    .HasConstraintName("FK__ShopServi__UserI__3E52440B");
             });
 
             modelBuilder.Entity<ShopTechDb>(entity =>
             {
                 entity.HasKey(e => e.TechnicianId)
-                    .HasName("PK__ShopTech__301F82C1FE1CE5F1");
+                    .HasName("PK__ShopTech__301F82C18386148E");
 
                 entity.Property(e => e.TechnicianId).HasColumnName("TechnicianID");
 
@@ -172,13 +168,13 @@ namespace UserVehicleSection.Models
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.ShopTechDb)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__ShopTechD__UserI__38996AB5");
+                    .HasConstraintName("FK__ShopTechD__UserI__3F466844");
             });
 
             modelBuilder.Entity<UserDb>(entity =>
             {
                 entity.HasKey(e => e.UserId)
-                    .HasName("PK__UserDb__1788CCAC2AD3AF85");
+                    .HasName("PK__UserDb__1788CCACEF1A07A9");
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
@@ -201,21 +197,23 @@ namespace UserVehicleSection.Models
                 entity.HasOne(d => d.Image)
                     .WithMany(p => p.UserDb)
                     .HasForeignKey(d => d.ImageId)
-                    .HasConstraintName("FK__UserDb__ImageID__4222D4EF");
+                    .HasConstraintName("FK__UserDb__ImageID__35BCFE0A");
             });
 
             modelBuilder.Entity<UserImgDb>(entity =>
             {
                 entity.HasKey(e => e.ImageId)
-                    .HasName("PK__UserImgD__7516F4EC98CF5A28");
+                    .HasName("PK__UserImgD__7516F4ECD81F8E7E");
 
                 entity.Property(e => e.ImageId).HasColumnName("ImageID");
+
+                entity.Property(e => e.UserImg).HasColumnType("text");
             });
 
             modelBuilder.Entity<UserVehDb>(entity =>
             {
                 entity.HasKey(e => e.VehicleId)
-                    .HasName("PK__UserVehD__476B54B2A588B996");
+                    .HasName("PK__UserVehD__476B54B251619083");
 
                 entity.Property(e => e.VehicleId).HasColumnName("VehicleID");
 
@@ -232,13 +230,13 @@ namespace UserVehicleSection.Models
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.UserVehDb)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__UserVehDb__UserI__3F466844");
+                    .HasConstraintName("FK__UserVehDb__UserI__403A8C7D");
             });
 
             modelBuilder.Entity<VehReqDb>(entity =>
             {
                 entity.HasKey(e => e.VehReqId)
-                    .HasName("PK__VehReqDb__DEC3D529094158CD");
+                    .HasName("PK__VehReqDb__DEC3D529A85ED485");
 
                 entity.Property(e => e.VehReqId).HasColumnName("VehReqID");
 
@@ -255,12 +253,12 @@ namespace UserVehicleSection.Models
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.VehReqDb)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__VehReqDb__UserID__412EB0B6");
+                    .HasConstraintName("FK__VehReqDb__UserID__4222D4EF");
 
                 entity.HasOne(d => d.Vehicle)
                     .WithMany(p => p.VehReqDb)
                     .HasForeignKey(d => d.VehicleId)
-                    .HasConstraintName("FK__VehReqDb__Vehicl__403A8C7D");
+                    .HasConstraintName("FK__VehReqDb__Vehicl__412EB0B6");
             });
 
             OnModelCreatingPartial(modelBuilder);

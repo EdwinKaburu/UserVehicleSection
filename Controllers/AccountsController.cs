@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using UserVehicleSection.Models;
@@ -17,12 +18,15 @@ namespace UserVehicleSection.Controllers
         private SignInManager<UserDb> signInManager;
 
         private IUserServices _repo;
+        private IWebHostEnvironment webHostEnvironment;
 
-        public AccountsController(UserManager<UserDb> userMgr, SignInManager<UserDb> signInMgr, IUserServices repository)
+
+        public AccountsController(UserManager<UserDb> userMgr, SignInManager<UserDb> signInMgr, IUserServices repository, IWebHostEnvironment hostEnvironment)
         {
             userManager = userMgr;
             signInManager = signInMgr;
             _repo = repository;
+            webHostEnvironment = hostEnvironment;
         }
 
         public IActionResult About()
@@ -104,13 +108,20 @@ namespace UserVehicleSection.Controllers
             if (ModelState.IsValid)
             {
 
-                UserImgDb userImg = new UserImgDb();
-                using (var memoryStream = new MemoryStream())
-                {
-                    await model.ImgPic.CopyToAsync(memoryStream);
+                //UserImgDb userImg = new UserImgDb();
+                //using (var memoryStream = new MemoryStream())
+                //{
+                //    await model.ImgPic.CopyToAsync(memoryStream);
 
-                    userImg.UserImg = memoryStream.ToArray();
-                }
+                //    userImg.UserImg = memoryStream.ToArray();
+                //}
+
+                string uniqueFileName = UploadedFile(model);
+
+                UserImgDb userImg = new UserImgDb
+                {
+                    UserImg = uniqueFileName
+                };
 
                 bool result = await _repo.CreateUserImgAsync(userImg);
 
@@ -209,6 +220,23 @@ namespace UserVehicleSection.Controllers
             //return PartialView(details);
             //return PartialView("_LogInSection", details);
 
+        }
+
+        private string UploadedFile(RegiserModel model)
+        {
+            string uniqueFileName = null;
+
+            if (model.ImgPic != null)
+            {
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ImgPic.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.ImgPic.CopyTo(fileStream);
+                }
+            }
+            return uniqueFileName;
         }
 
 

@@ -68,7 +68,7 @@ namespace UserVehicleSection.Controllers
 
             var shops = new VehicleReqModel
             {
-                Shoppers = _repo.GetUserDbs.Where(s => s.IsShop.Equals(true)),
+                Shoppers = _repo.GetUserDbs.Include(ap => ap.Image).Where(s => s.IsShop.Equals(true)),
                 VehicleID = int.Parse(vehicleID)
             };
 

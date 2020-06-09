@@ -65,7 +65,6 @@
             <ul class="dropdown menu" data-dropdown-menu>
                 <li class="menu-text"> Auto Destination</li>
                 <li><a asp-controller="Accounts" asp-action="About">About</a></li>
-                <li><a asp-controller="Accounts" asp-action="AccountManagement">Register/Login</a></li>
             </ul>
         </div>
         <div class="top-bar-right">
@@ -81,5 +80,16 @@
     <div>
         @RenderBody()
     </div>
+
+    <br />
+
+    <footer class="text-center" style="background-color:#1e1e1e; margin-top:20px; padding:20px">
+        <div>
+            &copy; 2018 User Vehicle Section. UVS. All rights reserved. All trademarks are property of their respective owners in the US and other countries.
+            VAT included in all prices where applicable.
+            <a asp-controller="Accounts" asp-action="About">View Terms of Service And Conditions</a>
+        </div>
+    </footer>
+
 </body>
 </html>
