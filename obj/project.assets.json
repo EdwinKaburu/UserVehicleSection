@@ -8245,11 +8245,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\edwinPC\\Documents\\ProjectDraft\\ProjectDraft\\UserVehicleSection\\UserVehicleSection.csproj",
+      "projectUniqueName": "C:\\Users\\edwinPC\\Desktop\\UVS\\UserVehicleSection\\UserVehicleSection.csproj",
       "projectName": "UserVehicleSection",
-      "projectPath": "C:\\Users\\edwinPC\\Documents\\ProjectDraft\\ProjectDraft\\UserVehicleSection\\UserVehicleSection.csproj",
+      "projectPath": "C:\\Users\\edwinPC\\Desktop\\UVS\\UserVehicleSection\\UserVehicleSection.csproj",
       "packagesPath": "C:\\Users\\edwinPC\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\edwinPC\\Documents\\ProjectDraft\\ProjectDraft\\UserVehicleSection\\obj\\",
+      "outputPath": "C:\\Users\\edwinPC\\Desktop\\UVS\\UserVehicleSection\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\edwinPC\\AppData\\Roaming\\NuGet\\NuGet.Config",
