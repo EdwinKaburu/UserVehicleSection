@@ -24,11 +24,9 @@ namespace UserVehicleSection.Controllers
         public IActionResult UserPortfolio([FromRoute(Name = "id")] string userID)
         {
             /*
-             * Change to Use Cookies
+             * Main Brain of User Portfolio
              * 
-             * Get Data based on LoginIn Information
-             * 
-             * int.Parse(Request.Cookies["UserID"])
+             * Note to Self -> Change to Use Cookies instead of QueryStrings
              */
 
             var getuser = _repo.GetUserDbs.Where(s => s.UserId.Equals(int.Parse(Request.Cookies["UserID"]))).Include(s => s.Image).FirstOrDefault();
@@ -75,21 +73,22 @@ namespace UserVehicleSection.Controllers
             return View(shops);
         }
 
+        //Vehicle Section in User-Portfolio
         [HttpPost]
         public IActionResult VehReqs([FromQuery(Name = "shopID")] string shopsID, [FromQuery(Name = "vehID")] string vehicleID)
         {
             var checkList = new List<CheckBoxItem>();
-            var Teches = _repo.GetAssignedTechDbs.Include(se => se.Service).Where(id => id.Service.UserId.Equals(int.Parse(shopsID)))
-                .Include(st => st.Technician).Where(ids => ids.Technician.UserId.Equals(int.Parse(shopsID)));
-            foreach (var services in Teches)
-            {
-                checkList.Add(new CheckBoxItem()
-                {
-                    Id = services.AssignId,
-                    Title = services.Service.ServiceName,
-                    IsChecked = false
-                });
-            }
+            //var Teches = _repo.GetAssignedTechDbs.Include(se => se.Service).Where(id => id.Service.UserId.Equals(int.Parse(shopsID)))
+            //    .Include(st => st.Technician).Where(ids => ids.Technician.UserId.Equals(int.Parse(shopsID)));
+            //foreach (var services in Teches)
+            //{
+            //    checkList.Add(new CheckBoxItem()
+            //    {
+            //        Id = services.AssignId,
+            //        Title = services.Service.ServiceName,
+            //        IsChecked = false
+            //    });
+            //}
 
             var shopServices = _repo.GetShopServices.Include(s => s.AssignedTechDb).ThenInclude(sp => sp.Technician).Where(ids => ids.UserId.Equals(int.Parse(shopsID)));
 
@@ -100,14 +99,14 @@ namespace UserVehicleSection.Controllers
                 GetUser = _repo.GetUserDbs.Where(s => s.UserId.Equals(int.Parse(shopsID))).FirstOrDefault(),
                 ShopServices = shop_Services,
                 CheckBoxItems = checkList,
-                AssignedTeches = Teches,
+                //AssignedTeches = Teches,
                 VehicleID = int.Parse(vehicleID),
                 UserID = int.Parse(shopsID)
             };
             return View(user);
         }
 
-
+        //Creation of Vehicle Request Service
         [HttpPost]
         public async Task<IActionResult> CheckBoxTester(VehicleReqModel model, string[] Blanks, [FromQuery(Name = "vehID")] string vehicleID, [FromQuery(Name = "shopID")] string shopsID)
         {
@@ -176,7 +175,7 @@ namespace UserVehicleSection.Controllers
         }
 
 
-
+        //Creation of Vehicle
         [HttpGet()]
         public IActionResult Vehicle([FromQuery(Name = "UserID")] string UserID)
         {

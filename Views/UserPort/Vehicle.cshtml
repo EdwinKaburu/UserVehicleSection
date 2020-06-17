@@ -95,6 +95,7 @@
 <a class="button" asp-controller="UserPort" asp-action="UserPortfolio" asp-route-id="@Model.redirectID" asp-route-status="false"> Return To Portfolio </a>
 
 <script>
+    //Get the Model based on the Make Selected. Update the Data without Reloading the Page
     $("select.makeID").change(function () {
 
         var make = $(this).children("option:selected").val();

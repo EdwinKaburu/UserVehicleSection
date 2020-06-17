@@ -25,15 +25,6 @@ namespace UserVehicleSection.Controllers
         {
 
 
-            //var ShopReqVeh = _repo.GetVehReqs.Where(s => s.UserId.Equals(int.Parse(shopID))).Include(a => a.ServiceReqDb).Include(sp => sp.Vehicle).Include(u => u.Vehicle.User);
-
-            //  var test = _repo.GetVehReqs.Include(a => a.ServiceReqDb).Include(sp => sp.ServicedHistDb)
-            //     .Include(sp => sp.Vehicle).ThenInclude(s => s.User).Where(vh => vh.UserId.Equals(int.Parse(shopID)));
-
-            //var servicedHistDb = _repo.GetServicedHists;
-
-
-
             // To Get The Vehicle Requests , excluding those that have been Serviced and completed 
 
             var actuall = _repo.GetVehReqs.Include(a => a.ServiceReqDb).ThenInclude(ap => ap.Assign.Technician).Include(ap => ap.ServiceReqDb).ThenInclude(ap => ap.Assign.Service)
@@ -65,7 +56,7 @@ namespace UserVehicleSection.Controllers
 
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------
-
+        //Creation of Technician
         public IActionResult CreateTechnician()
         {
             return View(new TechnicianModel
@@ -120,93 +111,6 @@ namespace UserVehicleSection.Controllers
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------
-        // Create New Technician
-        [HttpGet()]
-        public IActionResult ShopTech()
-        {
-            return View(new TechnicianModel
-            {
-                ShopServices = _repo.GetShopServices.Where(s => s.UserId.Equals(int.Parse(Request.Cookies["UserID"]))),
-                UserCookie = Request.Cookies["UserID"]
-
-            });
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> ShopTech(TechnicianModel technicianModel)
-        {
-
-           // var shop_services = _repo.GetShopServices.Where(s => s.UserId.Equals(int.Parse(Request.Cookies["UserID"])));
-
-            //string returnString = String.Empty;
-
-
-            //if(ModelState.IsValid)
-            //{
-            //    returnString = $"{technicianModel.TechnicianName} and {technicianModel.TechnicianDescription}" +
-            //        $" \t {shop_services.Where(sn => sn.ServiceName.Equals(technicianModel.AssignedService)).FirstOrDefault().ServiceId} ";
-
-
-            //    return Content(returnString);
-            //}
-
-            if (ModelState.IsValid)
-            {
-
-
-
-                ShopTechDb techDb = new ShopTechDb
-                {
-                    UserId = int.Parse(Request.Cookies["UserID"]),
-                    TechnicianName = technicianModel.TechnicianName,
-                    TechnicianDescription = technicianModel.TechnicianDescription
-                };
-
-                bool result = await _repo.CreateShopTeches(techDb);
-
-                if (result)
-                {
-
-                    //var service = _repo.GetShopServices.Where(name => name.ServiceName.Equals(technicianModel.AssignedService)).FirstOrDefault();
-
-                    //var service = shop_services.Where(sn => sn.ServiceName.Equals(technicianModel.AssignedService)).FirstOrDefault();
-
-                    AssignedTechDb assignedTech = new AssignedTechDb
-                    {
-                        TechnicianId = techDb.TechnicianId,
-                        ServiceId = _repo.GetShopServices.Where(name => name.ServiceName.Equals(technicianModel.AssignedService) && name.UserId.Equals(int.Parse(Request.Cookies["UserID"]))).FirstOrDefault().ServiceId
-                        //ServiceId = service.ServiceId
-                    };
-
-                    bool result1 = await _repo.CreateAssignedTech(assignedTech);
-
-                    if (result1)
-                    {
-                        ViewBag.TechSuccess = $"{technicianModel.AssignedService} Services Assigned to {technicianModel.TechnicianName}";
-                    }
-                    else
-                    {
-                        ModelState.AddModelError(string.Empty, "Couldn't Add Shop Services. Try Again With Cookies Enabled");
-                    }
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Couldn't Add Shop Services. Try Again With Cookies Enabled");
-                }
-            }
-
-            //return RedirectToAction("ShopTech", "AutoPort");
-            //return View("ShopTech");
-
-            return View(new TechnicianModel
-            {
-                ShopServices = _repo.GetShopServices.Where(s => s.UserId.Equals(int.Parse(Request.Cookies["UserID"]))),
-                UserCookie = Request.Cookies["UserID"]
-            });
-
-            //return Content(returnString);
-
-        }
 
         //Assign Technician To Service
         public IActionResult AssignShopTech()
@@ -322,6 +226,8 @@ namespace UserVehicleSection.Controllers
     }
 }
 
+// Removed Code, Future Reference 
+
 /*
  *  var shop_services = _repo.GetShopServices.Where(s => s.UserId.Equals(int.Parse(Request.Cookies["UserID"])));
 
@@ -379,4 +285,93 @@ namespace UserVehicleSection.Controllers
             //{
             //    ShopServices = _repo.GetShopServices.Where(s => s.UserId.Equals(int.Parse(Request.Cookies["UserID"])))
             //});
+
+
+[HttpGet()]
+        public IActionResult ShopTech()
+        {
+            return View(new TechnicianModel
+            {
+                ShopServices = _repo.GetShopServices.Where(s => s.UserId.Equals(int.Parse(Request.Cookies["UserID"]))),
+                UserCookie = Request.Cookies["UserID"]
+
+            });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ShopTech(TechnicianModel technicianModel)
+        {
+
+           // var shop_services = _repo.GetShopServices.Where(s => s.UserId.Equals(int.Parse(Request.Cookies["UserID"])));
+
+            //string returnString = String.Empty;
+
+
+            //if(ModelState.IsValid)
+            //{
+            //    returnString = $"{technicianModel.TechnicianName} and {technicianModel.TechnicianDescription}" +
+            //        $" \t {shop_services.Where(sn => sn.ServiceName.Equals(technicianModel.AssignedService)).FirstOrDefault().ServiceId} ";
+
+
+            //    return Content(returnString);
+            //}
+
+            if (ModelState.IsValid)
+            {
+
+
+
+                ShopTechDb techDb = new ShopTechDb
+                {
+                    UserId = int.Parse(Request.Cookies["UserID"]),
+                    TechnicianName = technicianModel.TechnicianName,
+                    TechnicianDescription = technicianModel.TechnicianDescription
+                };
+
+                bool result = await _repo.CreateShopTeches(techDb);
+
+                if (result)
+                {
+
+                    //var service = _repo.GetShopServices.Where(name => name.ServiceName.Equals(technicianModel.AssignedService)).FirstOrDefault();
+
+                    //var service = shop_services.Where(sn => sn.ServiceName.Equals(technicianModel.AssignedService)).FirstOrDefault();
+
+                    AssignedTechDb assignedTech = new AssignedTechDb
+                    {
+                        TechnicianId = techDb.TechnicianId,
+                        ServiceId = _repo.GetShopServices.Where(name => name.ServiceName.Equals(technicianModel.AssignedService) && name.UserId.Equals(int.Parse(Request.Cookies["UserID"]))).FirstOrDefault().ServiceId
+                        //ServiceId = service.ServiceId
+                    };
+
+                    bool result1 = await _repo.CreateAssignedTech(assignedTech);
+
+                    if (result1)
+                    {
+                        ViewBag.TechSuccess = $"{technicianModel.AssignedService} Services Assigned to {technicianModel.TechnicianName}";
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "Couldn't Add Shop Services. Try Again With Cookies Enabled");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Couldn't Add Shop Services. Try Again With Cookies Enabled");
+                }
+            }
+
+            //return RedirectToAction("ShopTech", "AutoPort");
+            //return View("ShopTech");
+
+            return View(new TechnicianModel
+            {
+                ShopServices = _repo.GetShopServices.Where(s => s.UserId.Equals(int.Parse(Request.Cookies["UserID"]))),
+                UserCookie = Request.Cookies["UserID"]
+            });
+
+            //return Content(returnString);
+
+        }
+
  */

@@ -34,7 +34,7 @@ namespace UserVehicleSection.Controllers
             return View();
         }
 
-
+        // Vehicle Serviced Yes or No, save to Database  --- Complete the Vehicle Request
         [HttpGet()]
         public async Task<IActionResult> Serviced([FromQuery(Name = "vehID")] string vehID, [FromQuery(Name = "shopID")] string shopID,
             [FromQuery(Name = "serCost")] string totalCost, [FromQuery(Name = "acceptance")] string condition, [FromQuery(Name = "shopPortfolio")] string redirect)
@@ -83,6 +83,7 @@ namespace UserVehicleSection.Controllers
             //string isShop = Request.Cookies["IsShop"];
             //string userID = Request.Cookies["UserID"];
 
+            // Get Account completing the Vehicle Request
             string portFolio = "UserPortfolio";
             string control = "UserPort";
             if (Boolean.Parse(redirect))
@@ -107,6 +108,7 @@ namespace UserVehicleSection.Controllers
         {
             if (ModelState.IsValid)
             {
+                //-------------- Save Image to Database
 
                 //UserImgDb userImg = new UserImgDb();
                 //using (var memoryStream = new MemoryStream())
@@ -115,6 +117,9 @@ namespace UserVehicleSection.Controllers
 
                 //    userImg.UserImg = memoryStream.ToArray();
                 //}
+
+
+                //-------------- Save Image to Image Folder in the Web Hosting Enivornment
 
                 string uniqueFileName = UploadedFile(model);
 
@@ -224,12 +229,19 @@ namespace UserVehicleSection.Controllers
 
         private string UploadedFile(RegiserModel model)
         {
+            //Generate File Name for Image, in case some pictures have the same Name or property
             string uniqueFileName = null;
 
             if (model.ImgPic != null)
             {
+                //Note to Self - For Future Reference (https://docs.microsoft.com/en-us/dotnet/api/system.io.path.combine?view=netcore-3.1)
+                
+                //Get the Images Folder Path
                 string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
+
+                // A Globally Unique Identifier
                 uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ImgPic.FileName;
+
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName);
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {

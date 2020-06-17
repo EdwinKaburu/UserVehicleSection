@@ -45,7 +45,7 @@ namespace UserVehicleSection.Services
         public IQueryable<ServiceReqDb> GetServiceReqs => context.ServiceReqDb;
 
 
-        //Vehicle Makes
+        //Vehicle Makes FROM NATIONAL HIGHWAY TRAFFIC SAFETY ADMINISTRATION (NHTSA) https://vpic.nhtsa.dot.gov/api/
         public async Task<List<Result>> GetVehichleMakesAsync()
         {
             //GetAllMakes getAllMakes = new GetAllMakes();
